@@ -1,0 +1,146 @@
+@import '../tokens.scss';
+
+.login-container {
+    display: flex;
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .img-login {
+        width: 50vw;
+        height: 100vh;
+        background-color: $primary100;
+    
+        img {
+            width: 67%;
+            max-width: 480px;
+        }
+    }
+
+    .form-login {
+        width: 50vw;
+        height: 100vh;
+
+        .form {
+            width: 62%;
+            max-width: 445px;
+        }
+    
+        @media (max-height: 720px) {
+    
+            div,
+            p,
+            img {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.form-login {
+    width: 50vw;
+    height: 100vh;
+
+    @media (max-height: 720px) {
+
+        div,
+        p,
+        img {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.form-esquecisenha,
+.form-alterarsenha {
+    // width: 50vw;
+    // height: 80vh;
+    max-width: 800px;
+    width: 100%;
+    padding: 70px 50px;
+    background-color: white;
+    margin-top: 25px;
+    //display: flex;
+    justify-content: center;
+    /* Centraliza horizontalmente */
+    align-items: center;
+    /* Centraliza verticalmente */
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.02), 0px 2px 4px 0px rgba(0, 0, 0, 0.08);
+    text-align: center;
+
+    .box-icon {
+        padding: 10px;
+        width: 36px;
+        height: 34px;
+        border-radius: 100%;
+
+        .green-icon-50 {
+            path {
+                fill: $green50
+            }
+        }
+
+        .yellow-icon-50 {
+            path {
+                fill: $yellow50;
+            }
+        }
+
+        .red-icon-50 {
+            path {
+                fill: $red50;
+            }
+        }
+    }
+
+    .green-icon {
+        path {
+            fill: $green500;
+        }
+    }
+
+    .yellow-icon {
+        path {
+            fill: $yellow500;
+        }
+    }
+
+    .red-icon {
+        path {
+            fill: $red500;
+        }
+    }
+
+    .img {
+        margin-bottom: 25px;
+    }
+
+    .p1 {
+        max-width: 390px;
+        width: 100%;
+        margin: 0 auto 35px;
+
+        span {
+            font-size: 1.2rem;
+            font-family: "Roboto", "Lato", sans-serif;
+            font-weight: 700;
+        }
+    }
+
+    .errorMsg {
+        text-align: left;
+        margin-top: 5px;
+    }
+
+    .btn-reenvio {
+        span {
+            color: $neutral500
+        }
+
+    }
+}

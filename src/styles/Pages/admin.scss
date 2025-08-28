@@ -1,0 +1,53 @@
+@import '../tokens.scss';
+
+.admin-container {
+    display: flex;
+    background: $neutral50;
+    height: calc(100vh - 66px);
+    width: 100vw;
+
+    .menu-lateral {
+        border-right: 1px solid $neutral200;
+        background: white;
+        height: 100%;
+        width: 295px;
+    }
+
+    .dashboard-admin {
+        padding: 16px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(354px, 1fr));
+            gap: 16px;         
+
+
+            .card.empresa {
+                border-top: 16px solid #743E00;            
+                align-items: start;
+            }
+    
+            .card {
+                display: flex;
+                width: 354px;
+                height: 410px;
+                padding: 60px 58px;
+                flex-direction: column;
+                align-items: center;
+                gap: 42px;
+                .h1 {
+                    color: $secondary400;
+                }
+                .p1, .p2 {
+                    color: $neutral600;
+                }
+            }
+        }
+
+    }
+
+}
