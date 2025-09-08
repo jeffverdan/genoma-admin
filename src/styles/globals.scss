@@ -1,8 +1,11 @@
 @import './tokens.scss';
+
 @import './Components/inputs.scss';
-@import './Pages/login.scss';
 @import './Components/componentsMUI.scss';
 @import './Components/header.scss';
+@import './Components/forms.scss';
+
+@import './Pages/login.scss';
 @import './Pages/admin.scss';
 
 :root { color-scheme: light; }
@@ -67,5 +70,9 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 22px; /* 137.5% */
+}
+
+svg.icon-white {
+  fill: white;
 }
 

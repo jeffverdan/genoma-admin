@@ -5,25 +5,26 @@ import { Visibility, VisibilityOff, Check } from "@mui/icons-material";
 import InputAdornment from '@mui/material/InputAdornment';
 import { FieldError } from "react-hook-form";
 import { HiExclamation } from 'react-icons/hi';
+import { error } from 'console';
 
 type MyTextFieldProps = TextFieldProps & {
     name: string;
     label?: string;
     placeholder?: string;
     required?: boolean;
-    error?: boolean;
+    fieldError: FieldError | undefined;
     sucess?: boolean;
-    msgError?: FieldError,
     width?: string,
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     saveOnBlur?: (e?: React.ChangeEvent<HTMLInputElement>) => void
     onBlurFunction?: () => void
     iconBefore?: React.ReactNode
+    className?: string
 };
 
 const InputText = forwardRef<HTMLInputElement, MyTextFieldProps>(
     function InputText(data: MyTextFieldProps, ref) {
-        const { label, msgError, placeholder, sucess, required, error, width, value, onBlurFunction, iconBefore, type, saveOnBlur, ...rest } = data;
+        const { label, placeholder, sucess, required, fieldError, width, value, onBlurFunction, iconBefore, type, saveOnBlur, className, ...rest } = data;
         const [isFocused, setIsFocused] = useState(false);
         const [isValue, setIsValue] = useState(value ? true : false);
         const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -54,10 +55,11 @@ const InputText = forwardRef<HTMLInputElement, MyTextFieldProps>(
 
         return (
             <div style={{ width: width }} className={"inputContainer " +
-                (isValue || sucess ? "sucess " : "") +
-                (isFocused ? "active " : "") +
-                (error ? "error " : "") +
-                (rest.disabled ? "disable" : "")
+                (className || '') +
+                (isValue || sucess ? " sucess " : "") +
+                (isFocused ? " active " : "") +
+                (!!fieldError ? " error " : "") +
+                (rest.disabled ? " disable" : "")
             }>
                 <TextField
                     label={label}
@@ -68,10 +70,10 @@ const InputText = forwardRef<HTMLInputElement, MyTextFieldProps>(
                     {...rest}
                     value={value}
                     placeholder={placeholder}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    InputProps={{
+                    // InputLabelProps={{
+                    //     shrink: true,
+                    // }}
+                    slotProps={{ input: {
                         endAdornment: (
                             <InputAdornment position="end" className='icons-container'>
                                 {!!iconBefore && iconBefore}
@@ -87,21 +89,21 @@ const InputText = forwardRef<HTMLInputElement, MyTextFieldProps>(
                                         </IconButton>
 
                                         :
-                                        sucess && !rest.name.includes("email")
+                                        (isValue && !fieldError) && !rest.name.includes("email")
                                             ? <Check width={14} height={12} />
                                             : ''
                                 }
-                                {error && <HiExclamation />}
+                                {!!fieldError && <HiExclamation />}
                             </InputAdornment>
                         )
-                    }}
-                    error={!!error}
+                    }}}
+                    error={!!fieldError}
                     inputRef={ref}
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
                     type={rest.name.includes("password") ? (showPassword ? "text" : "password") : type ? type : "text"}
                 />
-                {msgError && <p className='errorMsg'>*{msgError.message}</p>}
+                {fieldError && <p className='errorMsg'>*{fieldError.message}</p>}
             </div>
         )
     })

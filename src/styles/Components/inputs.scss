@@ -1,198 +1,233 @@
 @import '../tokens.scss';
 
-body .inputContainer {
-    margin-bottom: 32px;
-    position: relative;
-}
+body {
 
-body .inputContainer.sucess .react-tel-input {
-    .form-control {
-        border-bottom: 1px solid $primary500 !important;
+    .inputContainer {
+        position: relative;
     }
+    
+    .inputContainer.sucess .react-tel-input {
+        .form-control {
+            border-bottom: 1px solid $primary500 !important;
+        }
+    
+        .special-label {
+            color: $primary500;
+        }
+    }
+    
+    .inputContainer.active .react-tel-input {
+        .form-control {
+            border-bottom: 1px solid $primary400 !important;
+        }
+    
+        .special-label {
+            color: $primary400;
+        }
+    }
+    
+    .input-default {
+        width: 100%;
+        background: transparent;
+        padding: 15px 15px 15px 15px;
+        border: 2px solid $neutral200;
+        border-radius: 10px;
+        font-family: $roboto, $lato, sans-serif;
+        font-size: 1.25rem;
 
-    .special-label {
+        .MuiOutlinedInput-notchedOutline {
+            // border-color: transparent;
+        }
+    
+        label {
+            margin-top: 10px;
+            margin-left: 16px;
+            color: $neutral500;
+        }
+    
+        ::placeholder {
+            font-family: $roboto, $lato, sans-serif;
+            color: $neutral300;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+    
+        .MuiInputBase-root:before {
+            border-color: $neutral500;
+        }
+    
+        legend {
+            display: none;
+        }
+    
+        .icons-container {
+            gap: 8px;
+        }
+    }
+    
+    .active .input-default {
+        border-color: $primary400;
+    
+        .MuiSvgIcon-root {
+            fill: $primary500;
+        }
+    }
+    
+    .sucess .input-default {
+        border-color: transparent;
+        background-color: $primary100;
+    
+        .MuiSvgIcon-root {
+            fill: $primary500;
+        }
+    
+        label {
+            color: $primary500;
+        }
+    
+        input {
+            font-size: 1rem;
+            font-weight: 700;
+            color: $primary500;
+        }
+    
+        .MuiInputBase-root:before {
+            border-bottom: 1px solid $primary500
+        }
+    }
+    
+    .sucess.disable .input-default {
+        background-color: $neutral100;
+    
+        label {
+            color: $neutral400;
+        }
+    
+        .MuiInputBase-root.Mui-disabled {
+            -webkit-text-fill-color: $neutral400
+        }
+    }
+    
+    .disable .input-default {
+        cursor: not-allowed;
+        border-color: $neutral100;
+    
+        .Mui-disabled {
+            cursor: not-allowed;
+        }
+    
+        label {
+            color: $neutral300;
+        }
+    
+        .Mui-disabled:before {
+            // ALTERAÇÃO NO SUBILINHADO DO CAMPO - BATIDO COM VINI SLACK DIA 06-06
+            // border-bottom: 1px solid $neutral300 !important;
+            border-color: $neutral300;
+        }
+    }
+    
+    .error .input-default {
+        border-color: $red200 !important;
+        background-color: transparent !important;
+    
+        .MuiFormHelperText-root.Mui-error {
+            font-weight: 700;
+        }
+    
+        input,
+        label {
+            color: $red500 !important;
+        }
+    
+        .MuiInputBase-root:before {
+            border-color: $red500 !important;
+        }
+    
+        ::placeholder {
+            color: $red200 !important;
+        }
+    
+        svg {
+            fill: $red500;
+        }
+    }
+    
+    
+    .input-phone {
+        .form-control {
+            width: 100% !important;
+        }
+    }
+    
+    .select-label {
+        position: absolute;
+        font-size: 0.8rem;
+        left: 18px;
+        top: 15px;
+        z-index: 9;
+    }
+    
+    .sucess .select-label {
+        font-weight: 400;
         color: $primary500;
     }
-}
-
-body .inputContainer.active .react-tel-input {
-    .form-control {
-        border-bottom: 1px solid $primary400 !important;
+    
+    .error .select-label {
+        font-weight: 400;
+        color: $red500;
+    }
+    
+    
+    *:focus-visible {
+        outline: none;
+    }
+    
+    .sucess .select-default {
+        font-weight: 700;
+        color: $primary500;
+    }
+    
+    .sucess .select-documentos {
+        font-weight: 700;
+        color: $primary500;
+        border-radius: 10px;
+        border: 1px solid var(--primary-500, #01988C);
+    }
+    
+    .error .select-default,
+    .error .select-documentos {
+        font-weight: 400;
+        color: $neutral300;
     }
 
-    .special-label {
-        color: $primary400;
-    }
-}
-
-body .input-default, 
-.MuiTextField-root {
-    width: 100%;
-    background: transparent;
-    padding: 15px 15px 15px 15px;
-    border: 2px solid $neutral200;
-    border-radius: 10px;
-    font-family: $roboto, $lato, sans-serif;
-    font-size: 1.25rem;
-
-    label {
-        margin-top: 10px;
-        margin-left: 16px;
-        color: $neutral500;
-    }
-
-    ::placeholder {
+    .select-default {
+        padding: 0;
+        font-size: 1rem;
         font-family: $roboto, $lato, sans-serif;
         color: $neutral300;
-        font-size: 1rem;
-        font-weight: 700;
+    
+        input {
+            font-size: 1rem;
+        }
+    
+        :before {
+            border-bottom: none;
+        }
+    
+        .MuiOutlinedInput-notchedOutline {
+            border-color: #fff;
+            top: 0;
+            border-color: $neutral200;
+            border-style: hidden;
+        }
+    
+        .MuiSelect-select {
+            white-space: inherit;
+            font-size: 16px;
+            font-family: $roboto, $lato, sans-serif;
+            border-bottom: none;
+            padding: 36px 0 23px 17px;
+        }
     }
-
-    .MuiInputBase-root:before {
-        border-color: $neutral500;
-    }
-
-    legend {
-        display: none;
-    }
-
-    .icons-container {
-        gap: 8px;
-    }
-}
-
-body .active .input-default {
-    border-color: $primary400;
-
-    .MuiSvgIcon-root {
-        fill: $primary500;
-    }
-}
-
-body .sucess .input-default {
-    border-color: transparent;
-    background-color: $primary100;
-
-    .MuiSvgIcon-root {
-        fill: $primary500;
-    }
-
-    label {
-        color: $primary500;
-    }
-
-    input {
-        font-size: 1rem;
-        font-weight: 700;
-        color: $primary500;
-    }
-
-    .MuiInputBase-root:before {
-        border-bottom: 1px solid $primary500
-    }
-}
-
-body .sucess.disable .input-default {
-    background-color: $neutral100;
-
-    label {
-        color: $neutral400;
-    }
-
-    .MuiInputBase-root.Mui-disabled {
-        -webkit-text-fill-color: $neutral400
-    }
-}
-
-body .disable .input-default {
-    cursor: not-allowed;
-    border-color: $neutral100;
-
-    .Mui-disabled {
-        cursor: not-allowed;
-    }
-
-    label {
-        color: $neutral300;
-    }
-
-    .Mui-disabled:before {
-        // ALTERAÇÃO NO SUBILINHADO DO CAMPO - BATIDO COM VINI SLACK DIA 06-06
-        // border-bottom: 1px solid $neutral300 !important;
-        border-color: $neutral300;
-    }
-}
-
-body .error .input-default {
-    border-color: $red200 !important;
-    background-color: transparent !important;
-
-    .MuiFormHelperText-root.Mui-error {
-        font-weight: 700;
-    }
-
-    input,
-    label {
-        color: $red500 !important;
-    }
-
-    .MuiInputBase-root:before {
-        border-color: $red500 !important;
-    }
-
-    ::placeholder {
-        color: $red200 !important;
-    }
-
-    svg {
-        fill: $red500;
-    }
-}
-
-
-.input-phone {
-    .form-control {
-        width: 100% !important;
-    }
-}
-
-.select-label {
-    position: absolute;
-    font-size: 0.8rem;
-    left: 18px;
-    top: 15px;
-    z-index: 9;
-}
-
-.sucess .select-label {
-    font-weight: 400;
-    color: $primary500;
-}
-
-.error .select-label {
-    font-weight: 400;
-    color: $red500;
-}
-
-
-*:focus-visible {
-    outline: none;
-}
-
-.sucess .select-default {
-    font-weight: 700;
-    color: $primary500;
-}
-
-.sucess .select-documentos {
-    font-weight: 700;
-    color: $primary500;
-    border-radius: 10px;
-    border: 1px solid var(--primary-500, #01988C);
-}
-
-.error .select-default,
-.error .select-documentos {
-    font-weight: 400;
-    color: $neutral300;
 }

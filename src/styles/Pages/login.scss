@@ -45,6 +45,22 @@
     width: 50vw;
     height: 100vh;
 
+    img {
+        margin-bottom: 36px;
+    }
+
+    h2 {
+        font-size: 40px;
+        color: $secondary400;
+        font-family: $lato;
+        margin-bottom: 16px;
+    }
+
+    .p1 {
+        font-weight: 400;
+        margin-bottom: 42px;
+    }
+
     @media (max-height: 720px) {
 
         div,

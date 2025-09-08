@@ -1,20 +1,32 @@
 import HeadSeo from "@/components/HeadSeo/HeadSeo"
-import { useState } from "react";
-import MenuLateral from "./componentes/MenuLateral";
-import Dashboard from "./componentes/Dashboard/Dashboard";
+import { useEffect } from "react";
+import MenuLateral from "./@componentes/MenuLateral";
+import Dashboard from "./@componentes/Dashboard/Dashboard";
+import useAdminStore from "./@store/useAdminStore";
+import Colaboradores from "./@componentes/Colaboradores/Colaboradores";
 
 export default function Admin() {
-    const [selectedIndex, setSelectedIndex] = useState(0);
+    const {
+        selectedIndex,
+        fetchLojas,
+        fetchUsuarios,
+      } = useAdminStore();
+    
+      useEffect(() => {
+        fetchLojas();
+        fetchUsuarios();
+      }, [fetchLojas, fetchUsuarios]);
 
     return (
         <>
             <HeadSeo title="Admin Page" description="This is the admin page." />
             <main className="admin-container">
 
-                <MenuLateral selectedIndex={selectedIndex} handleChangeMenu={setSelectedIndex} />
+                <MenuLateral />
 
-                {selectedIndex === 0 && <Dashboard selectedIndex={selectedIndex} handleChangeMenu={setSelectedIndex} />}
+                {selectedIndex === 0 && <Dashboard />}
 
+                {selectedIndex === 4 && <Colaboradores />}
             </main>
         </>
     );

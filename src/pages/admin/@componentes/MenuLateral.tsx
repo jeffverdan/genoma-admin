@@ -3,6 +3,7 @@ import ReciboIcon from "@/images/ReciboIcon";
 import { MenuPrincipalTypes } from "@/types/Admin/menuLateral";
 import { List, ListItemButton } from "@mui/material";
 import { HiAdjustmentsHorizontal, HiBuildingOffice2, HiCurrencyDollar, HiHome, HiHomeModern, HiLifebuoy, HiUserGroup } from "react-icons/hi2";
+import useAdminStore from "../@store/useAdminStore";
 
 const MENU_PRINCIPAL: MenuPrincipalTypes[] = [
     { id: 0, label: 'Visão geral', icon: <HiHome size={22} /> },
@@ -16,13 +17,9 @@ const MENU_PRINCIPAL: MenuPrincipalTypes[] = [
     { id: 8, label: 'Ajuda', icon: <HiLifebuoy size={22} /> },
 ];
 
-type PropsType = {
-    selectedIndex: number
-    handleChangeMenu: (index: number) => void
-}
-
-export default function MenuLateral(props: PropsType) {
-    const { selectedIndex, handleChangeMenu } = props;
+export default function MenuLateral() {    
+    const selectedIndex = useAdminStore((s) => s.selectedIndex);
+    const setSelectedIndex = useAdminStore((s) => s.setSelectedIndex);
 
     return (
         <nav className="menu-lateral list-items">
@@ -32,7 +29,7 @@ export default function MenuLateral(props: PropsType) {
                         key={item.id}
                         className='item'
                         selected={selectedIndex === item.id}
-                        onClick={() => handleChangeMenu(item.id)}
+                        onClick={() => setSelectedIndex(item.id)}
                     >
                         {item.icon} {item.label}
                     </ListItemButton>

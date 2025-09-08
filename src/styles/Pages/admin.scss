@@ -50,4 +50,43 @@
 
     }
 
+    .colaboradores-admin {
+        max-height: calc(100vh - 66px);
+        width: 100%;
+        overflow: auto;
+        padding: 16px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .btn-actions {
+            display: flex;
+            gap: 16px;
+        }
+    }
+
+}
+
+.funcionario-container {
+    display: flex;    
+    height: calc(100vh - 66px);
+    
+    .card.perfil {
+        margin: 16px 22px;
+        display: flex;
+        width: 275px;
+        padding: 30px 76px;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        height: max-content;
+    }
+
+    .formity-forms {
+        .dados-funcionario {
+            .inputContainer.cnpj {
+                width: 50%;
+            }
+        }
+    }
 }

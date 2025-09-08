@@ -1,0 +1,88 @@
+@import '../tokens.scss';
+
+
+.formity-forms {
+    padding: 16px 0px;
+    padding-right: 22px;
+    width: 100%;
+    max-height: calc(100vh - 66px - 82px); // DESCONTO DO FOOTER E DA HEADER
+    overflow: auto;
+
+    .form-container {
+        border-radius: 10px;
+        border: 1px solid $neutral200;
+        background: #FFF;
+        box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+
+        display: flex;
+        padding: 58px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 42px;
+        align-self: stretch;
+
+        .h3 {
+            color: $neutral600;
+            font-family: Lato;
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 700;
+        }
+
+        .form-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 42px;
+
+            .p1 {
+                color: $neutral600;
+                font-family: Roboto;
+                font-weight: 400;
+            }
+
+            .form-row {
+                display: grid;
+                width: 100%;
+                gap: 16px;
+                justify-content: space-between;
+                grid-template-columns: repeat(auto-fill, min(250px));
+
+            }
+
+            .form-row.col2 {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 48%));
+
+            }
+
+            .form-row.col3 {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 32%));
+
+            }
+        }
+
+        .inputContainer {
+            min-width: 30%;
+        }
+
+        footer.action-btns {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+        }
+
+    }
+}
+
+
+.footer-form {
+    position: fixed;
+    bottom: 0;
+    height: 82px;
+    width: 100%;
+    border-top: 1px solid $neutral200;
+    border-bottom: 1px solid $neutral200;
+    background: #FFF;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}

@@ -2,34 +2,16 @@ import Image from "next/image";
 import LogoEmpresa from '@/images/logoEmpresa.png';
 import LojasImage from '@/images/ilustra_lojas.png';
 import FuncionariosImage from '@/images/ilustra_funcionarios.png';
-import { useEffect, useState } from "react";
-import getLojas from "@/apis/getLojas";
-import { GetLojasResType } from "@/types/APIs";
-
-type PropsType = {
-    selectedIndex: number
-    handleChangeMenu: (index: number) => void
-}
+import useAdminStore from "../../@store/useAdminStore";
 
 const EMPRESA = {
     id: 0,
     nome: "DNA IMÓVEIS",
 }
 
-export default function Dashboard(props: PropsType) {
-    const { selectedIndex, handleChangeMenu } = props;
-    const [lojas, setLojas] = useState<GetLojasResType[]>([]);
-
-    const getLojasApi = async () => {
-        const lojas = await getLojas();
-        console.log(lojas);
-        
-        if(lojas) setLojas(lojas);
-    };
-
-    useEffect(() => {
-        getLojasApi();
-    },[]);
+export default function Dashboard() {    
+    const lojas = useAdminStore((s) => s.lojas);
+    const usuarios = useAdminStore((s) => s.usuarios);
 
     return (
         <section className="dashboard-admin">
@@ -49,6 +31,7 @@ export default function Dashboard(props: PropsType) {
 
                 <div className="card">
                     <Image src={FuncionariosImage} alt="Logo da Empresa" height={106} />
+                    <h1 className="h1">{usuarios.length}</h1>
                     <h2>Funcionários</h2>
                 </div>
             </div>
