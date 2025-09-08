@@ -1,12 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import {
-  FormStep,
-} from '../form-step';
+import FormStep from '../form-step';
 import { InputSelect } from "../form-step";
-import { BackButton } from "../Buttons/BackButton";
-import { NextButton } from "../Buttons/NextButton";
+import BackButton from "../Buttons/BackButton";
+import NextButton from "../Buttons/NextButton";
 
 export type ValuesLojasType = { loja: number };
 

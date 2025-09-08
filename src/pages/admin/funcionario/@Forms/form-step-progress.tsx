@@ -10,7 +10,7 @@ interface FormStepContainerProps {
   };
 }
 
-export function FormStepProgress({
+export default function FormStepProgress({
   children,
   progress,
 }: FormStepContainerProps) {
@@ -20,7 +20,7 @@ export function FormStepProgress({
         <motion.div
           initial={false}
           animate={{
-            width: `${(progress.currentStep / progress.numberOfSteps) * 100}%`,
+            width: `${(progress?.currentStep || 0 / progress?.numberOfSteps || 0) * 100}%`,
           }}
           className="motion"
         />

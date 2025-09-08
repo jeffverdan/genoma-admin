@@ -3,12 +3,12 @@ import { useFormContext } from "react-hook-form";
 import { motion } from "motion/react";
 import ButtonComponent from "@/components/Button/Button";
 
-interface BackButtonProps extends ComponentPropsWithoutRef<"button"> {
+export interface BackButtonProps extends ComponentPropsWithoutRef<"button"> {
     onBack: (values: object) => void;    
 }
 
-export function BackButton({ onBack, ...props }: BackButtonProps) {
-    const { getValues } = useFormContext();
+export default function BackButton({ onBack }: BackButtonProps) {
+    const getValues = useFormContext()?.getValues;
     return (
         <motion.div
             initial={false}
@@ -19,7 +19,7 @@ export function BackButton({ onBack, ...props }: BackButtonProps) {
                 size="medium"
                 label='Voltar'
                 variant="outlined"
-                onClick={() => onBack(getValues())}
+                onClick={() => getValues ? onBack(getValues()) : null}
             />
         </motion.div>
     );

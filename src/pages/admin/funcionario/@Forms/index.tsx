@@ -1,7 +1,7 @@
 // app.tsx
 import { useCallback, useState } from "react";
 import { Formity, type OnReturn } from "@formity/react";
-import { schema, type Values, type Params } from "./Schema";
+import { schema, type Values, type Params } from "./@Steps/@Schema";
 import type { Status } from "./multi-step";
 
 type FormPropsType = {

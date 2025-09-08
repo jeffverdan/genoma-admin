@@ -1,9 +1,9 @@
 
-import useAdminStore from "../../@store/useAdminStore";
+import useAdminStore from "../../../../stores/admin/useAdminStore";
 import ButtonComponent from "@/components/Button/Button";
 import { HiPlus } from "react-icons/hi";
 import { HiArrowUpTray, HiPencil } from "react-icons/hi2";
-import { Chip, Table, TableBody, TableHead, TableRow, TableCell, Pagination, TablePagination, Box, Menu, MenuItem, TableSortLabel } from '@mui/material';
+import { Table, TableBody, TableHead, TableRow, TableCell, Pagination, TablePagination, Box, Menu, MenuItem, TableSortLabel } from '@mui/material';
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 

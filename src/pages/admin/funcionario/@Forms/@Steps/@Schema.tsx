@@ -1,11 +1,11 @@
 // schema.tsx
 import type { Schema, Form, Return } from "@formity/react";
-import DadosGerais, { type ValuesDadosGeraisType } from "./Steps/DadosGerais";
-import Lojas, { type ValuesLojasType } from "./Steps/Lojas";
-import DadosPagamento, { type ValuesDadosPagamentoType } from "./Steps/DadosPagamentos";
-import Endereco, { type ValuesEnderecoType } from "./Steps/Endereco";
-import { MultiStep } from "./multi-step";
-import type { FormityStatus } from "./multi-step";
+import DadosGerais, { type ValuesDadosGeraisType } from "./DadosGerais";
+import Lojas, { type ValuesLojasType } from "./Lojas";
+import DadosPagamento, { type ValuesDadosPagamentoType } from "./DadosPagamentos";
+import Endereco, { type ValuesEnderecoType } from "./Endereco";
+import MultiStep from "../multi-step";
+import type { FormityStatus } from "../multi-step";
 
 export type Values = [
     Form<ValuesDadosGeraisType>,
@@ -94,6 +94,8 @@ const steps = [
       return: (value: object) => value,
     },
   ] as unknown as Schema<Values, object, Params>; 
+
+  export default function Page() { return null }
 
 // export const schema: Schema<Values, object, Params> = [
 //     {

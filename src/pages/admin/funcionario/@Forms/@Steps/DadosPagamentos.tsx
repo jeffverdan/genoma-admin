@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { FormStep, InputText } from '../form-step'
-import { NextButton } from "../Buttons/NextButton";
-import { BackButton } from "../Buttons/BackButton";
+import FormStep, { InputText } from '../form-step'
+import NextButton from "../Buttons/NextButton";
+import BackButton from "../Buttons/BackButton";
 import { InputSelect } from "../form-step";
 
 type PropsType = {

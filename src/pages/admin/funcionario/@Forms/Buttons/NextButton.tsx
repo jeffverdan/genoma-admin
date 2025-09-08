@@ -7,7 +7,7 @@ interface NextButtonProps extends ComponentPropsWithoutRef<"button"> {
   end?: boolean;
 }
 
-export function NextButton({
+export default function NextButton({
   submitting = false,
   end,
 }: NextButtonProps) {

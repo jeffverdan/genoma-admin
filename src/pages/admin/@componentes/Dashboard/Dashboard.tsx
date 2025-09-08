@@ -2,7 +2,7 @@ import Image from "next/image";
 import LogoEmpresa from '@/images/logoEmpresa.png';
 import LojasImage from '@/images/ilustra_lojas.png';
 import FuncionariosImage from '@/images/ilustra_funcionarios.png';
-import useAdminStore from "../../@store/useAdminStore";
+import useAdminStore from "../../../../stores/admin/useAdminStore";
 
 const EMPRESA = {
     id: 0,

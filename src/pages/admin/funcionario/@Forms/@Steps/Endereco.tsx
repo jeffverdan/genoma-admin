@@ -1,10 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { FormStep, InputText } from '../form-step'
-import { NextButton } from "../Buttons/NextButton";
-import { BackButton } from "../Buttons/BackButton";
+import FormStep, { InputText } from '../form-step'
+import NextButton from "../Buttons/NextButton";
+import BackButton from "../Buttons/BackButton";
 import ApiCepCorreios from "@/apis/apiCepCorreios";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 type PropsType = {

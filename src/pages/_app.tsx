@@ -1,6 +1,6 @@
 // src/pages/_app.tsx
 import type { AppProps } from "next/app";
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import theme from "../theme/theme";
 import "../styles/globals.scss";
 import Layout from "../theme/layout";

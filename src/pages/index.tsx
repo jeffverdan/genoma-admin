@@ -119,8 +119,7 @@ export default function IndexPage() {
           <InputText
             label="E-mail"
             placeholder='Ex: seuemail@gmail.com'
-            error={!!errors.email || !!msgLogin}
-            msgError={errors.email}
+            fieldError={errors.email}            
             sucess={!errors.email && !!watch("email")}
             {...register("email", {
               required: "E-mail obrigatório",
@@ -133,9 +132,8 @@ export default function IndexPage() {
 
           <InputText
             label="Password"
-            placeholder='Ex: Minhasenha987'
-            error={!!errors.password || !!msgLogin}
-            msgError={errors.password}
+            placeholder='Ex: Minhasenha987'            
+            fieldError={errors.password}            
             sucess={!errors.password && !!watch("password")}
             {...register("password", {
               required: "Senha obrigatória",

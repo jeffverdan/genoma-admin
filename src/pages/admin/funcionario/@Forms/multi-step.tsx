@@ -33,7 +33,7 @@ interface MultiStepProps {
     children: ReactNode;
 }
 
-export function MultiStep({
+export default function MultiStep({
     id,
     onNext,
     onBack,

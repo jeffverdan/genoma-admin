@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import type { DefaultValues, FieldError, Resolver } from "react-hook-form";
 import { Controller, FormProvider, useFormContext, useForm } from "react-hook-form";
 import InputTextComponent from "@/components/Inputs/InputText";
@@ -12,7 +12,7 @@ interface FormStepProps<T extends Record<string, unknown>> {
     onSubmit?: (output: T) => void;
 }
 
-export function FormStep<T extends Record<string, unknown>>({
+export default function FormStep<T extends Record<string, unknown>>({
     defaultValues,
     resolver,
     children,

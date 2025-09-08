@@ -3,7 +3,7 @@ import ReciboIcon from "@/images/ReciboIcon";
 import { MenuPrincipalTypes } from "@/types/Admin/menuLateral";
 import { List, ListItemButton } from "@mui/material";
 import { HiAdjustmentsHorizontal, HiBuildingOffice2, HiCurrencyDollar, HiHome, HiHomeModern, HiLifebuoy, HiUserGroup } from "react-icons/hi2";
-import useAdminStore from "../@store/useAdminStore";
+import useAdminStore from "../../../stores/admin/useAdminStore";
 
 const MENU_PRINCIPAL: MenuPrincipalTypes[] = [
     { id: 0, label: 'Visão geral', icon: <HiHome size={22} /> },
