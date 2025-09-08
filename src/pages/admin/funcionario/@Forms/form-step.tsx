@@ -30,7 +30,7 @@ export function FormStep<T extends Record<string, unknown>>({
             className="form-container"
             inert={disabled}
         >
-            {children && <FormProvider {...form}>{children({ form })}</FormProvider>}
+            {children && <FormProvider {...form}>{children}</FormProvider>}
         </form>
     );
 }
