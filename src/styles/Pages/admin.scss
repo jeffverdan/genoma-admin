@@ -80,6 +80,11 @@
         align-items: center;
         gap: 24px;
         height: max-content;
+
+        .MuiAvatar-root {
+            width: 102px;
+            height: 102px;
+        }
     }
 
     .formity-forms {

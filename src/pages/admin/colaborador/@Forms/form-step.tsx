@@ -40,12 +40,15 @@ interface FormInputTextProps {
     placeholder?: string
     label: string
     onBlur?: (e?: React.ChangeEvent<HTMLInputElement>) => void
+    disabled?: boolean
 }
 
-export function InputText({ name, placeholder, label, onBlur }: FormInputTextProps) {
+export function InputText({ name, placeholder, label, onBlur, disabled }: FormInputTextProps) {
     const Form = useFormContext();
     const control = Form?.control;
     const error = Form?.formState.errors[name] as FieldError;
+    // console.log("FormContext: ", Form?.watch());
+    
 
     return <Controller
         control={control}
@@ -60,6 +63,7 @@ export function InputText({ name, placeholder, label, onBlur }: FormInputTextPro
                 onChange={field.onChange}
                 fieldError={error}
                 saveOnBlur={onBlur}
+                disabled={disabled}
             />
         )}
     />

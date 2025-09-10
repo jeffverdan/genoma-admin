@@ -1,7 +1,8 @@
 type GetLojasResType = {
     "id": number,
+    "value": number,
     "nome": string,
-    "label": string,
+    "name": string,
     "empresa": {
         "id": number,
         "nome_empresarial": string,

@@ -4,18 +4,20 @@ import FormStep, { InputText } from '../form-step'
 import NextButton from "../Buttons/NextButton";
 import BackButton from "../Buttons/BackButton";
 import { InputSelect } from "../form-step";
+import { useEffect, useState } from "react";
+import getListBancos, { ListBancosType } from "@/apis/getListBancos";
 
 type PropsType = {
     values: ValuesDadosPagamentoType
-    onNext: (e: object) => void
-    onBack: (e: object) => void
+    onNext: (e: ValuesDadosPagamentoType) => void
+    onBack: (e: ValuesDadosPagamentoType) => void
 }
 
 export type ValuesDadosPagamentoType = {
-    banco: string,
+    banco_id: number,
     agencia: string,
-    conta: string,
-    tipo_pix: number,
+    numero_conta: string,
+    tipo_chave_pix_id: number,
     chave_pix: string,
 };
 
@@ -33,12 +35,23 @@ export default function DadosPagamento({
     onBack,
 }: PropsType) {
     const RULES = {
-        banco: z.string(),
+        banco_id: z.number(),
         agencia: z.string(),
-        conta: z.string(),
-        tipo_pix: z.number(),
+        numero_conta: z.string(),
+        tipo_chave_pix_id: z.number(),
         chave_pix: z.string(),
     } as const;
+
+    const [ listBancos, setListBancos ] = useState<ListBancosType>([]);
+
+    const getList = async () => {
+        const bancos = await getListBancos();
+        if(bancos) setListBancos(bancos);
+    };
+
+    useEffect(() => {
+        getList()
+    }, [])
 
     return (
         <FormStep
@@ -54,13 +67,14 @@ export default function DadosPagamento({
 
                 <p className="p1">Banco</p>
                 <div className="form-row col3">
-                    <InputText name="banco" label="Instituição financeira" placeholder="000.000.000-00" />
+                    <InputSelect name='banco_id' label='Instituição financeira*' option={listBancos} />
+                    {/* <InputText name="banco" label="Instituição financeira" placeholder="000.000.000-00" /> */}
                     <InputText name="agencia" label="Agência" placeholder="00000-0" />
-                    <InputText name="conta" label="Conta" placeholder="(21) 00000-0000" />
+                    <InputText name="numero_conta" label="Conta" placeholder="(21) 00000-0000" />
                 </div>
                 <p className="p1">Pix</p>
                 <div className="form-row col2">
-                    <InputSelect name='tipo_pix' label='Tipo de Chave*' option={TEST_ARRY} />
+                    <InputSelect name='tipo_chave_pix_id' label='Tipo de Chave*' option={TEST_ARRY} />
                     <InputText name="chave_pix" label="Chave Pix" placeholder="00.000.000/0000-00" />
                 </div>
             </div>

@@ -10,7 +10,7 @@ async function getLojas() {
       }
     });
     if (res) {
-      lojas = res.data.data.map((e: GetLojasResType) => ({ ...e, label: e.nome }));
+      lojas = res.data.data.map((e: GetLojasResType) => ({ ...e, value: e.id, name: e.nome }));
     }
   } catch (error) {
     console.error('listar_lojas: ', error);

@@ -116,6 +116,7 @@ export default function Colaboradores() {
     const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
+    
     const handleCloseMenu = () => setAnchorEl(null);
 
     const handleSelectCargo = (cargo: string | null) => {
@@ -149,7 +150,7 @@ export default function Colaboradores() {
     return (
         <section className="colaboradores-admin">
             <div className="btn-actions">
-                <ButtonComponent labelColor="white" label="Adicionar colaborador" endIcon={<HiPlus className="icon-white" />} size={"large"} variant={"contained"} onClick={() => route.push('/admin/funcionario')} />
+                <ButtonComponent labelColor="white" label="Adicionar colaborador" endIcon={<HiPlus className="icon-white" />} size={"large"} variant={"contained"} onClick={() => route.push('/admin/colaborador')} />
                 <ButtonComponent label="Subir planilha" disabled endIcon={<HiArrowUpTray />} size={"large"} variant={"outlined"} />
             </div>
             <div className="table-container">
@@ -256,7 +257,7 @@ export default function Colaboradores() {
                                     </TableCell>
                                     <TableCell padding='none'>
                                         <div className={`col-table btn-action`} style={{ width: COLUMNS[4].minWidth }}>
-                                            <ButtonComponent label="Editar" labelColor="white" startIcon={<HiPencil className="icon-white" />} size="small" variant="contained" />
+                                            <ButtonComponent label="Editar" onClick={() => route.push('/admin/colaborador/' + row.id)} labelColor="white" startIcon={<HiPencil className="icon-white" />} size="small" variant="contained" />
                                         </div>
                                     </TableCell>
                                 </TableRow>

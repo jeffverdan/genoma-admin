@@ -2,9 +2,10 @@ import type { ComponentPropsWithoutRef } from "react";
 import { useFormContext } from "react-hook-form";
 import { motion } from "motion/react";
 import ButtonComponent from "@/components/Button/Button";
+import { FormColaboradoresDataType } from "../@Steps/@Schema";
 
 export interface BackButtonProps extends ComponentPropsWithoutRef<"button"> {
-    onBack: (values: object) => void;    
+    onBack: (values: FormColaboradoresDataType) => void;    
 }
 
 export default function BackButton({ onBack }: BackButtonProps) {
@@ -19,7 +20,7 @@ export default function BackButton({ onBack }: BackButtonProps) {
                 size="medium"
                 label='Voltar'
                 variant="outlined"
-                onClick={() => getValues ? onBack(getValues()) : null}
+                onClick={() => getValues ? onBack(getValues() as FormColaboradoresDataType) : null}
             />
         </motion.div>
     );
