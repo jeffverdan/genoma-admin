@@ -50,8 +50,8 @@ export default function Lojas({ values, onNext, onBack }: PropsType) {
     )
   } as const;
 
-  const lojas = useAdminStore((s) => s.lojas);
-  const cargos = useAdminStore((s) => s.cargos);
+  const lojas = useAdminStore((s) => s?.lojas);
+  const cargos = useAdminStore((s) => s?.cargos);
   const [ listQuant, setListQuant ] = useState([{ value: 0, name: "Selecione"}]);
 
   useEffect(() => {
@@ -75,9 +75,11 @@ export default function Lojas({ values, onNext, onBack }: PropsType) {
   });
   const { watch, setValue } = form;
 
-  console.log("Watch: ", watch('cargos'));
-  console.log("Values: ", values.cargos);
-  console.log("Errors: ", form.formState.errors);
+  if(form) {
+    console.log("Watch: ", watch('cargos'));
+    console.log("Values: ", values?.cargos);
+    console.log("Errors: ", form.formState.errors);
+  }
 
   useEffect(() => {
     const quant = watch("quant_cargos");
@@ -112,8 +114,7 @@ export default function Lojas({ values, onNext, onBack }: PropsType) {
         />
         <p>Selecione o cargo e as lojas do colaborador</p>
         {watch("cargos")?.map((cargo, index) => (
-          <div className="form-row col2" key={index}>
-            {/* <input hidden name={`cargos.${index}.id`} value={cargo.id || 0} /> */}
+          <div className="form-row col2" key={index}>            
             <InputSelect name={`cargos.${index}.perfil_login_id`} label='Cargo*' option={cargos} />
             <InputSelect name={`cargos.${index}.loja_id`} label='Loja*' option={lojas} />
           </div>
