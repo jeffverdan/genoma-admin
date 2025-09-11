@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { nullable, z } from "zod";
 import { InputSelect } from "../form-step";
 import BackButton from "../Buttons/BackButton";
 import NextButton from "../Buttons/NextButton";
@@ -10,9 +10,9 @@ import { FormProvider, useForm } from "react-hook-form";
 export type ValuesLojasType = {
   quant_cargos: number
   cargos: {    
-    id: number
-    perfil_login_id: number,
-    loja_id: number
+    id: number | null
+    perfil_login_id: number ,
+    loja_id: number 
   }[]
 };
 
@@ -31,7 +31,7 @@ export default function Lojas({ values, onNext, onBack }: PropsType) {
     
     cargos: z.array(
       z.object({
-        id: z.number(),
+        id: z.number().nullable(),
         perfil_login_id: z.number().min(1, "Selecione um cargo válido"),
         loja_id: z.number().min(1, "Selecione uma loja válida"),
       })
@@ -75,9 +75,9 @@ export default function Lojas({ values, onNext, onBack }: PropsType) {
     if (quant && quant > 0) {
       // cria um array com `quant` elementos
       const cargosArray = Array.from({ length: quant }, (_e, index) => ({
-        id: oldCargos[index]?.id || 0,
-        perfil_login_id: oldCargos[index]?.perfil_login_id || 0,
-        loja_id: oldCargos[index]?.loja_id || 0,
+        id: oldCargos[index]?.id || null,
+        perfil_login_id: oldCargos[index]?.perfil_login_id,
+        loja_id: oldCargos[index]?.loja_id
       }));
   
       setValue("cargos", cargosArray);

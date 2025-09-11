@@ -4,8 +4,6 @@ import FormStep, { InputText } from '../form-step'
 import NextButton from "../Buttons/NextButton";
 import BackButton from "../Buttons/BackButton";
 import { InputSelect } from "../form-step";
-import { useEffect, useState } from "react";
-import getListBancos, { ListBancosType } from "@/apis/getListBancos";
 import useAdminStore from "@/stores/admin/useAdminStore";
 
 type PropsType = {
@@ -15,11 +13,11 @@ type PropsType = {
 }
 
 export type ValuesDadosPagamentoType = {
-    banco_id: number,
-    agencia: string,
-    numero_conta: string,
-    tipo_chave_pix_id: number,
-    chave_pix: string,
+    banco_id?: number | null,
+    agencia?: string,
+    numero_conta?: string,
+    tipo_chave_pix_id?: number | null,
+    chave_pix?: string,
 };
 
 const TEST_ARRY = [
@@ -36,11 +34,11 @@ export default function DadosPagamento({
     onBack,
 }: PropsType) {
     const RULES = {
-        banco_id: z.number(),
-        agencia: z.string(),
-        numero_conta: z.string(),
-        tipo_chave_pix_id: z.number(),
-        chave_pix: z.string(),
+        banco_id: z.number().nullable().optional(),
+        agencia: z.string().optional(),
+        numero_conta: z.string().optional(),
+        tipo_chave_pix_id: z.number().nullable().optional(),
+        chave_pix: z.string().optional(),
     } as const;
 
     const bancos = useAdminStore((s) => s?.bancos);
@@ -60,9 +58,8 @@ export default function DadosPagamento({
                 <p className="p1">Banco</p>
                 <div className="form-row col3">
                     <InputSelect name='banco_id' label='Instituição financeira*' option={bancos} />
-                    {/* <InputText name="banco" label="Instituição financeira" placeholder="000.000.000-00" /> */}
                     <InputText name="agencia" label="Agência" placeholder="00000-0" />
-                    <InputText name="numero_conta" label="Conta" placeholder="(21) 00000-0000" />
+                    <InputText name="numero_conta" label="Conta" placeholder="0000" />
                 </div>
                 <p className="p1">Pix</p>
                 <div className="form-row col2">

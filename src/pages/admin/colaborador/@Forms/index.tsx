@@ -45,7 +45,8 @@ export default function Form({ setCurrentStep }: FormPropsType) {
     // setStatus({ type: "end" });
 
     // Show output in the console
-    console.log("Saida: ", userData);
+    console.log("Saida UserData: ", userData);
+    console.log("Saida output: ", output);
 
     const DADOS_BANCARIOS = userData?.dados_bancarios;
 
@@ -69,9 +70,6 @@ export default function Form({ setCurrentStep }: FormPropsType) {
       setResSaveData(res)
       setStatus({ type: "end", submitting: false });
     }, 1000);
-
-
-
   }, [userData]);
 
 

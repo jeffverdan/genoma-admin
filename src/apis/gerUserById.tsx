@@ -20,11 +20,11 @@ export type UserDataColaboradorType = {
     "creci": string | null,
     "dados_bancarios": {
         "id": number | null,
-        "banco_id": number | null,
+        "banco_id"?: number | null,
         "nome_banco"?: string | null,
-        "agencia": string | null,
-        "numero_conta": string | null,
-        "tipo_chave_pix_id": number | null,
+        "agencia"?: string | null,
+        "numero_conta"?: string | null,
+        "tipo_chave_pix_id"?: number | null,
         "tipo_chave_pix"?: string | null,
         "pix"?: string | null
     },
