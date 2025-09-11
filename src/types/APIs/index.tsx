@@ -65,7 +65,7 @@ type GetUsersListType = {
         "id": number,
         "loja_id": number,
         "nome": string
-    }
+    }[]
 }
 
 export type { GetLojasResType, GetUsersListType };
