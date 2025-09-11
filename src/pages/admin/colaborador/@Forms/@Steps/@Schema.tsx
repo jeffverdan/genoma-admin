@@ -48,7 +48,7 @@ const steps = (userData?: UserDataColaboradorType) => [
     id: "cargos",
     Component: Lojas,
     values: () => ({
-      quant_cargos: [userData?.cargos?.length || 0, []],
+      quant_cargos: [userData?.cargos?.length || null, []],
       cargos: [
         userData?.cargos.map((e) => ({
           id: e.id,
@@ -56,9 +56,9 @@ const steps = (userData?: UserDataColaboradorType) => [
           loja_id: e.loja_id,
         })) || [
           {
-            id: 0,
-            perfil_login_id: 0,
-            loja_id: 0,
+            id: null,
+            perfil_login_id: null,
+            loja_id: null,
           },
         ],
         []]
@@ -68,10 +68,10 @@ const steps = (userData?: UserDataColaboradorType) => [
     id: "dadosPagamento",
     Component: DadosPagamento,
     values: () => ({
-      banco_id: [userData?.dados_bancarios?.banco_id || 0, []],
+      banco_id: [userData?.dados_bancarios?.banco_id || null, []],
       agencia: [userData?.dados_bancarios?.agencia || '', []],
       numero_conta: [userData?.dados_bancarios?.numero_conta || '', []],
-      tipo_chave_pix_id: [userData?.dados_bancarios?.tipo_chave_pix_id || 0, []],
+      tipo_chave_pix_id: [userData?.dados_bancarios?.tipo_chave_pix_id || null, []],
       chave_pix: [userData?.dados_bancarios?.pix || '', []],
     }),
   },
