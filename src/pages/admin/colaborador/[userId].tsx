@@ -26,7 +26,7 @@ export default function FuncionarioById(props: PropsType) {
   const [indexForm, setIndexForm] = useState<number | undefined>();
 
   useEffect(() => {
-    if (indexForm) fetchUsuario(userId);
+    if (Number(indexForm) >= 0) fetchUsuario(userId);
   }, [indexForm])
 
   useEffect(() => {
