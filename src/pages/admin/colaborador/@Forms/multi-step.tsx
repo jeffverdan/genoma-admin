@@ -14,6 +14,7 @@ export type FormityStatus = {
 
 export type EndStatus = {
     type: "end";
+    submitting: boolean;
 };
 
 export interface MultiStepValue {

@@ -5,18 +5,26 @@ import getUsuarios from "@/apis/getUsers";
 import { GetLojasResType, GetUsersListType } from "@/types/APIs";
 import getListPerfis from "@/apis/getListPerfis";
 import { UserDataColaboradorType } from "@/apis/gerUserById";
+import getListBancos, { ListBancosType } from "@/apis/getListBancos";
 
 type AdminStore = {
   selectedIndex: number;
+  setSelectedIndex: (index: number) => void;
+
   userData: UserDataColaboradorType | undefined;
   setUserData: (userData: UserDataColaboradorType | undefined) => void;
+
   lojas: GetLojasResType[];
-  cargos:{ value: number, name: string }[]
-  usuarios: GetUsersListType[];
-  setSelectedIndex: (index: number) => void;
   fetchLojas: () => Promise<void>;
+
+  cargos:{ value: number, name: string }[]
   fetchCargos: () => Promise<void>;
+
+  usuarios: GetUsersListType[];
   fetchUsuarios: () => Promise<void>;
+
+  bancos: ListBancosType;
+  fetchBancos: () => Promise<void>;
 };
 
 const useAdminStore = create<AdminStore>((set) => ({
@@ -24,6 +32,7 @@ const useAdminStore = create<AdminStore>((set) => ({
   lojas: [],
   usuarios: [],
   cargos: [],
+  bancos: [],
   userData: undefined,
 
   setUserData: (e) => set({ userData: e }),
@@ -42,6 +51,11 @@ const useAdminStore = create<AdminStore>((set) => ({
   fetchUsuarios: async () => {
     const usuarios = await getUsuarios();
     if (usuarios) set({ usuarios });
+  },
+
+  fetchBancos: async () => {
+    const bancos = await getListBancos();
+    if(bancos) set({ bancos })
   },
 }));
 

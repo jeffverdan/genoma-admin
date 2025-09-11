@@ -2,18 +2,21 @@ import { Avatar, Chip } from "@mui/material";
 import Form from './@Forms';
 import FooterForm from '@/components/Footers/Form';
 import { useEffect, useState } from "react";
-import { GetServerSideProps } from "next";
-import getUserById, { UserDataColaboradorType } from "@/apis/gerUserById";
-import { useRouter } from "next/router";
+import useAdminStore from "@/stores/admin/useAdminStore";
 
-export default function FuncionarioById() {
-  const route = useRouter();  
-  const [userData, setUserData] = useState<UserDataColaboradorType | undefined>()
-
-  const TOTAL_STEPS = 3;
-
-  // const currentStep = useCurrentStep((s) => s.currentStep);
+export default function FuncionarioById() {  
   const [currentStep, setCurrentStep] = useState<number>(0);
+  
+  const TOTAL_STEPS = 3;    
+  const { userData, setUserData } = useAdminStore();  
+  const { fetchLojas, fetchCargos, fetchBancos } = useAdminStore();
+  useEffect(() => {
+    fetchLojas();
+    fetchCargos();
+    fetchBancos();
+  }, [fetchLojas, fetchCargos, fetchBancos]);
+
+  const lojas = useAdminStore((s) => s?.lojas);
 
   useEffect(() => {
     localStorage.removeItem('data');
@@ -22,6 +25,7 @@ export default function FuncionarioById() {
       setUserData(undefined);
       localStorage.removeItem('data');
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -29,11 +33,15 @@ export default function FuncionarioById() {
       <div className="card perfil">
         <Avatar />
         <p className="p1">{userData?.nome || '---'}</p>
-        {userData?.cargos.map((cargo) => <Chip className="chip primary" label={cargo.cargo} key={cargo.id} />)}
-        {userData?.lojas.map((loja) => <Chip className="chip green" label={loja.nome} key={loja.loja_id} />)}
+        <div className="row-cargos">
+          {userData?.cargos.map((cargo) => <Chip className="chip primary" label={cargo.cargo} key={cargo.id} />)}
+        </div>
+        <div className="row-cargos">
+          {userData?.cargos.filter((e) => e.loja_id).map((cargo) => <Chip className="chip green" label={lojas.find(e => e.id === cargo.loja_id)?.nome || '---'} key={cargo.loja_id} />)}
+        </div>
       </div>
 
-      {userData && <Form setCurrentStep={setCurrentStep} />}
+      <Form setCurrentStep={setCurrentStep} />
 
       <FooterForm progress={{ numberOfSteps: TOTAL_STEPS, currentStep: currentStep }} >
         <></>

@@ -5,7 +5,6 @@ import { Visibility, VisibilityOff, Check } from "@mui/icons-material";
 import InputAdornment from '@mui/material/InputAdornment';
 import { FieldError } from "react-hook-form";
 import { HiExclamation } from 'react-icons/hi';
-import { error } from 'console';
 
 type MyTextFieldProps = TextFieldProps & {
     name: string;
@@ -73,12 +72,16 @@ const InputText = forwardRef<HTMLInputElement, MyTextFieldProps>(
                     // InputLabelProps={{
                     //     shrink: true,
                     // }}
-                    slotProps={{ input: {
+                    slotProps={{ 
+                        inputLabel: {
+                            classes: ".css-xiblmv-MuiFormLabel-root-MuiInputLabel-root"
+                        },
+                        input: {
                         endAdornment: (
                             <InputAdornment position="end" className='icons-container'>
-                                {!!iconBefore && iconBefore}
-                                
-                                {rest.name.includes("password")
+                                {!!iconBefore 
+                                    ? iconBefore
+                                    : rest.name.includes("password")
                                         ? <IconButton
                                             aria-label="toggle password visibility"
                                             onClick={handleClickShowPassword}

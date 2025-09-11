@@ -5,7 +5,8 @@ import NextButton from "../Buttons/NextButton";
 import BackButton from "../Buttons/BackButton";
 import ApiCepCorreios from "@/apis/apiCepCorreios";
 import { useState } from "react";
-import { FormProvider,  useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
+import { CircularProgress } from "@mui/material";
 
 type PropsType = {
     values: ValuesEnderecoType
@@ -16,9 +17,9 @@ type PropsType = {
 export type ValuesEnderecoType = {
     cep: string,
     logradouro: string
-    numero: string
-    unidade: string
-    complemento: string
+    numero: string | undefined
+    unidade: string | undefined
+    complemento: string | undefined
     cidade: string
     estado: string
     bairro: string
@@ -32,9 +33,9 @@ export default function Endereco({
     const RULES = {
         cep: z.string(),
         logradouro: z.string(),
-        numero: z.string(),
-        unidade: z.string(),
-        complemento: z.string(),
+        numero: z.string().optional(),
+        unidade: z.string().optional(),
+        complemento: z.string().optional(),
         cidade: z.string(),
         estado: z.string(),
         bairro: z.string(),
@@ -42,8 +43,8 @@ export default function Endereco({
 
     const [loading, setLoading] = useState<boolean>(false);
 
-    const form = useForm({ 
-        values, 
+    const form = useForm({
+        values,
         resolver: zodResolver(z.object(RULES)),
     });
 
@@ -51,8 +52,8 @@ export default function Endereco({
         setLoading(true);
         const cep = e?.target.value
         // console.log("Form: ", Form?.watch());
-        if (cep?.length === 8) {
-            const { setValue } = form;
+        const { setValue } = form;
+        if (cep && cep.length >= 8) {
             const data = await ApiCepCorreios(cep);
             if (data) {
                 setValue('cep', data.cep);
@@ -60,9 +61,14 @@ export default function Endereco({
                 setValue('cidade', data.localidade);
                 setValue('estado', data.uf);
                 setValue('bairro', data.bairro);
-                setValue('unidade', data.unidade);
-                setValue('complemento', data.complemento);                
+                // setValue('unidade', data.unidade);
+                // setValue('complemento', data.complemento);                
             }
+        } else if (!cep) {
+            setValue('logradouro', '');
+            setValue('cidade', '');
+            setValue('estado', '');
+            setValue('bairro', '');
         }
         setLoading(false)
     };
@@ -78,7 +84,7 @@ export default function Endereco({
                 <div className="form-content">
 
                     <div className="form-row col2">
-                        <InputText name='cep' label='CEP*' placeholder="00000-00" onBlur={getCEP} />
+                        <InputText name='cep' label='CEP*' placeholder="00000-00" onBlur={getCEP} iconBefore={loading ? <CircularProgress size={20} /> : undefined} />
                         <InputText name="logradouro" disabled label="Logradouro" placeholder="Logradouro" />
                     </div>
                     <div className="form-row col3">

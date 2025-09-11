@@ -29,6 +29,12 @@
             font-weight: 700;
         }
 
+        .feedback-action {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+        }
+
         .form-content {
             width: 100%;
             display: flex;

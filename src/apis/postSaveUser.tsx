@@ -1,7 +1,7 @@
 import axiosInstance from '../utils/axiosInterceptorInstance';
 import { UserDataColaboradorType } from './gerUserById';
 
-async function saveUser(dataToSave: UserDataColaboradorType): Promise<undefined> {
+async function saveUser(dataToSave: UserDataColaboradorType): Promise<{ status: boolean } | undefined> {
     let response;
     try {
         const res = await axiosInstance.post('salvar_colaborador', {

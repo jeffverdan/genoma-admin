@@ -5,11 +5,14 @@ import { schema as defaultSchema, type Values, type Params, FormColaboradoresDat
 import type { Status } from "./multi-step";
 import { UserDataColaboradorType } from "@/apis/gerUserById";
 import saveUser from "@/apis/postSaveUser";
-import { ValuesDadosGeraisType } from "./@Steps/DadosGerais";
 import { ValuesLojasType } from "./@Steps/Lojas";
 import { ValuesDadosPagamentoType } from "./@Steps/DadosPagamentos";
-import { ValuesEnderecoType } from "./@Steps/Endereco";
 import useAdminStore from "@/stores/admin/useAdminStore";
+import { CircularProgress } from "@mui/material";
+import { Check } from "@mui/icons-material";
+import ButtonComponent from "@/components/Button/Button";
+import { HiArrowLeft } from "react-icons/hi2";
+import { useRouter } from "next/router";
 
 type FormPropsType = {
   setCurrentStep: (e: number) => void
@@ -18,19 +21,15 @@ type FormPropsType = {
 
 export default function Form({ setCurrentStep }: FormPropsType) {
   const [schema, setSchema] = useState<Schema<Values, object, Params>>();
-  const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<Status>({
     type: "formity",
     moving: false,
     submitting: false,
   });
   const { userData, setUserData } = useAdminStore();
-  const { fetchLojas, fetchCargos } = useAdminStore();
+  const [resSaveData, setResSaveData] = useState<{ status: boolean } | undefined>();
   const cargos = useAdminStore((s) => s.cargos);
-  useEffect(() => {
-    fetchLojas();
-    fetchCargos();
-  }, [fetchLojas, fetchCargos]);
+  const route = useRouter();
 
   useEffect(() => {
     const newSchema = defaultSchema(userData);
@@ -41,41 +40,66 @@ export default function Form({ setCurrentStep }: FormPropsType) {
 
   // CHAMA APENAS NO ULTIMO STEP
   const onReturn = useCallback<OnReturn<Values>>(async (output) => {
-    // setStatus({ type: "formity", moving: false, submitting: true });
+    setStatus({ type: "end", submitting: true });
     const values = output as FormColaboradoresDataType;
+    // setStatus({ type: "end" });
 
     // Show output in the console
     console.log("Saida: ", userData);
-    
+
     const DADOS_BANCARIOS = userData?.dados_bancarios;
-    
+
     const dataToSave = {
       ...userData,
       ...output,
-      dados_bancarios: {        
+      dados_bancarios: {
         ...DADOS_BANCARIOS,
-          "id": DADOS_BANCARIOS?.id || null,  
-          "banco_id": values.banco_id || null,          
-          "agencia": values.agencia || '',
-          "numero_conta": values.numero_conta || '',
-          "tipo_chave_pix_id": values.tipo_chave_pix_id || null,          
-          "pix": values.chave_pix || '',      
+        "id": DADOS_BANCARIOS?.id || null,
+        "banco_id": values.banco_id || null,
+        "agencia": values.agencia || '',
+        "numero_conta": values.numero_conta || '',
+        "tipo_chave_pix_id": values.tipo_chave_pix_id || null,
+        "pix": values.chave_pix || '',
       }
     } as UserDataColaboradorType;
 
     // Simulate a network request
-    const res = await saveUser(dataToSave)
+    const res = await saveUser(dataToSave);
+    setTimeout(() => {
+      setResSaveData(res)
+      setStatus({ type: "end", submitting: false });
+    }, 1000);
 
-    // setStatus({ type: "end" });
-  }, []);
+
+
+  }, [userData]);
 
 
 
   if (status.type === "end") {
     return (
-      <>
-
-      </>
+      <section className="formity-forms feedback">
+        <div className="form-container">
+          {status.submitting
+            ? <h3 className="h3"><CircularProgress size={20} /> Salvando dados de colaborador... </h3>
+            : resSaveData?.status === true
+              ? <h3 className="h3"><Check /> Colaborador salvo com sucesso!</h3>
+              : <h3 className="h3">Ocorreu um erro ao salvar colaborador</h3>
+          }
+          <div className="feedback-action">
+            {resSaveData?.status === true &&
+              <ButtonComponent
+                label="Voltar"
+                variant="contained"
+                onClick={() => route.back()}
+                startIcon={<HiArrowLeft fill="white" />}
+                labelColor="white"
+                size="large"
+              />
+            }
+          </div>
+        </div>
+      </section>
     );
   };
 
@@ -85,7 +109,7 @@ export default function Form({ setCurrentStep }: FormPropsType) {
 
     let DADOS_CARGOS = userData?.cargos || [];
     let DADOS_BANCARIOS = userData?.dados_bancarios;
-    if("banco_id" in values) {
+    if ("banco_id" in values) {
       const value = values as ValuesDadosPagamentoType;
       DADOS_BANCARIOS = {
         ...DADOS_BANCARIOS,
@@ -98,7 +122,7 @@ export default function Form({ setCurrentStep }: FormPropsType) {
         ...DADOS_CARGOS[index],
         cargo: cargos.find((e) => e.value === cargo.perfil_login_id)?.name || '',
         loja_id: cargo.loja_id,
-        perfil_login_id: cargo.perfil_login_id 
+        perfil_login_id: cargo.perfil_login_id
       }))
     }
 
@@ -117,7 +141,7 @@ export default function Form({ setCurrentStep }: FormPropsType) {
   };
 
   console.log("User data: ", userData);
-  
+
 
   return (
     <section className='formity-forms'>

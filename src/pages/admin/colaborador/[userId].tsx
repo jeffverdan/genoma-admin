@@ -3,7 +3,7 @@ import Form from './@Forms';
 import FooterForm from '@/components/Footers/Form';
 import { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
-import getUserById, { UserDataColaboradorType } from "@/apis/gerUserById";
+import getUserById from "@/apis/gerUserById";
 import { useRouter } from "next/router";
 import useAdminStore from "@/stores/admin/useAdminStore";
 
@@ -13,9 +13,16 @@ interface PropsType {
 
 export default function FuncionarioById(props: PropsType) {
   const route = useRouter();
-  const { userId } = props;
-  // const [userData, setUserData] = useState<UserDataColaboradorType | undefined>();
-  const { userData, setUserData } = useAdminStore();
+  const { userId } = props;  
+  const { userData, setUserData } = useAdminStore();  
+  const { fetchLojas, fetchCargos, fetchBancos } = useAdminStore();
+  useEffect(() => {
+    fetchLojas();
+    fetchCargos();
+    fetchBancos();
+  }, [fetchLojas, fetchCargos, fetchBancos]);
+
+  const lojas = useAdminStore((s) => s?.lojas);
 
   const TOTAL_STEPS = 3;
 
@@ -50,8 +57,12 @@ export default function FuncionarioById(props: PropsType) {
       <div className="card perfil">
         <Avatar />
         <p className="p1">{userData?.nome || '---'}</p>
-        {userData?.cargos.map((cargo) => <Chip className="chip primary" label={cargo.cargo} key={cargo.id} />)}
-        {userData?.lojas.map((loja) => <Chip className="chip green" label={loja.nome} key={loja.loja_id} />)}
+        <div className="row-cargos">
+          {userData?.cargos.map((cargo) => <Chip className="chip primary" label={cargo.cargo} key={cargo.id} />)}
+        </div>
+        <div className="row-cargos">
+          {userData?.cargos.filter((e) => e.loja_id).map((cargo) => <Chip className="chip green" label={lojas.find(e => e.id === cargo.loja_id)?.nome || '---'} key={cargo.loja_id} />)}
+        </div>
       </div>
 
       {userData && <Form setCurrentStep={setCurrentStep} />}

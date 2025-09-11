@@ -1,7 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
-import FormStep from '../form-step';
 import { InputSelect } from "../form-step";
 import BackButton from "../Buttons/BackButton";
 import NextButton from "../Buttons/NextButton";
@@ -23,16 +21,6 @@ type PropsType = {
   onNext: (e: object) => void
   onBack: (e: object) => void
 }
-
-const TEST_ARRY = [
-  { value: 0, name: "Selecione..." },
-  { value: 1, name: "1" },
-  { value: 2, name: "2" },
-  { value: 3, name: "3" },
-  { value: 4, name: "4" },
-  { value: 5, name: "5" },
-  { value: 6, name: "6" },
-]
 
 export default function Lojas({ values, onNext, onBack }: PropsType) {
   const RULES = {

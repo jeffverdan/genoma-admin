@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import FormStep, { InputText } from '../form-step'
 import NextButton from "../Buttons/NextButton";
-import { UserDataColaboradorType } from "@/apis/gerUserById";
 
 type PropsType = {
     values: ValuesDadosGeraisType

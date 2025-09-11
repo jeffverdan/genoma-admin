@@ -6,6 +6,7 @@ import BackButton from "../Buttons/BackButton";
 import { InputSelect } from "../form-step";
 import { useEffect, useState } from "react";
 import getListBancos, { ListBancosType } from "@/apis/getListBancos";
+import useAdminStore from "@/stores/admin/useAdminStore";
 
 type PropsType = {
     values: ValuesDadosPagamentoType
@@ -42,16 +43,7 @@ export default function DadosPagamento({
         chave_pix: z.string(),
     } as const;
 
-    const [ listBancos, setListBancos ] = useState<ListBancosType>([]);
-
-    const getList = async () => {
-        const bancos = await getListBancos();
-        if(bancos) setListBancos(bancos);
-    };
-
-    useEffect(() => {
-        getList()
-    }, [])
+    const bancos = useAdminStore((s) => s?.bancos);
 
     return (
         <FormStep
@@ -67,7 +59,7 @@ export default function DadosPagamento({
 
                 <p className="p1">Banco</p>
                 <div className="form-row col3">
-                    <InputSelect name='banco_id' label='Instituição financeira*' option={listBancos} />
+                    <InputSelect name='banco_id' label='Instituição financeira*' option={bancos} />
                     {/* <InputText name="banco" label="Instituição financeira" placeholder="000.000.000-00" /> */}
                     <InputText name="agencia" label="Agência" placeholder="00000-0" />
                     <InputText name="numero_conta" label="Conta" placeholder="(21) 00000-0000" />
