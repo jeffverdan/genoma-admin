@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Formity, type OnReturn, type Schema } from "@formity/react";
 import { schema as defaultSchema, type Values, type Params, FormColaboradoresDataType } from "./@Steps/@Schema";
-import type { Status } from "./multi-step";
+import type { Status } from "./@Animations/multi-step";
 import { UserDataColaboradorType } from "@/apis/gerUserById";
 import saveUser from "@/apis/postSaveUser";
 import { ValuesLojasType } from "./@Steps/Lojas";
@@ -16,33 +16,38 @@ import { useRouter } from "next/router";
 
 type FormPropsType = {
   setCurrentStep: (e: number) => void
+  index?: number
+  setIndex?: (e: number | undefined) => void
 }
 
 
-export default function Form({ setCurrentStep }: FormPropsType) {
+export default function Form({ setCurrentStep, index, setIndex }: FormPropsType) {
   const [schema, setSchema] = useState<Schema<Values, object, Params>>();
   const [status, setStatus] = useState<Status>({
     type: "formity",
     moving: false,
     submitting: false,
   });
-  const { userData, setUserData } = useAdminStore();
+  const { userData, setUserData, fetchUsuario } = useAdminStore();
   const [resSaveData, setResSaveData] = useState<{ status: boolean } | undefined>();
   const cargos = useAdminStore((s) => s.cargos);
   const route = useRouter();
 
   useEffect(() => {
-    const newSchema = defaultSchema(userData);
-    setSchema(newSchema);
+    const newSchema = defaultSchema(userData, setIndex);
+    const schemaToIndex = (Number(index) >= 0
+      ? [newSchema[Number(index)], newSchema[newSchema.length - 1]] 
+      : defaultSchema(userData)
+    ) as Schema<Values, object, Params>
+    
+    setSchema(schemaToIndex);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
-
-  console.log("State Schema: ", schema);
 
   // CHAMA APENAS NO ULTIMO STEP
   const onReturn = useCallback<OnReturn<Values>>(async (output) => {
     setStatus({ type: "end", submitting: true });
     const values = output as FormColaboradoresDataType;
-    // setStatus({ type: "end" });
 
     // Show output in the console
     console.log("Saida UserData: ", userData);
@@ -63,16 +68,18 @@ export default function Form({ setCurrentStep }: FormPropsType) {
         "pix": values.chave_pix || '',
       }
     } as UserDataColaboradorType;
-
-    // Simulate a network request
+    
     const res = await saveUser(dataToSave);
+
+    if(setIndex) setIndex(undefined); // MODO EDITAR
+
     setTimeout(() => {
       setResSaveData(res)
       setStatus({ type: "end", submitting: false });
     }, 1000);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
-
-
 
   if (status.type === "end") {
     return (
@@ -139,7 +146,6 @@ export default function Form({ setCurrentStep }: FormPropsType) {
   };
 
   console.log("User data: ", userData);
-
 
   return (
     <section className='formity-forms'>

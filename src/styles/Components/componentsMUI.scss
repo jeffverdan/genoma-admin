@@ -566,6 +566,11 @@ body {
                 .col.text {
                     align-items: start;
                 }
+
+                .col.chip {
+                    gap: 8px;
+                    align-items: start;
+                }
         
                 .col.actions {
                     display: flex;

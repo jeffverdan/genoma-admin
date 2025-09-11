@@ -11,7 +11,8 @@ import { CircularProgress } from "@mui/material";
 type PropsType = {
     values: ValuesEnderecoType
     onNext: (e: object) => void
-    onBack: (e: object) => void
+    onBack?: (e: object) => void
+    setIndex?: (e: undefined) => void // VOLTAR DO MODO DE EDIÇÃO
 }
 
 export type ValuesEnderecoType = {
@@ -29,6 +30,7 @@ export default function Endereco({
     values,
     onNext,
     onBack,
+    setIndex
 }: PropsType) {
     const RULES = {
         cep: z.string(),
@@ -99,7 +101,7 @@ export default function Endereco({
                     </div>
                 </div>
                 <footer className="action-btns">
-                    <BackButton onBack={onBack} />
+                    {(setIndex || onBack) ? <BackButton setIndex={setIndex} onBack={onBack}  /> : <div></div>}                
                     <NextButton end />
                 </footer>
             </FormProvider>

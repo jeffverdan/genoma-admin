@@ -4,7 +4,7 @@ import getLojas from "@/apis/getLojas";
 import getUsuarios from "@/apis/getUsers";
 import { GetLojasResType, GetUsersListType } from "@/types/APIs";
 import getListPerfis from "@/apis/getListPerfis";
-import { UserDataColaboradorType } from "@/apis/gerUserById";
+import getUserById, { UserDataColaboradorType } from "@/apis/gerUserById";
 import getListBancos, { ListBancosType } from "@/apis/getListBancos";
 
 type AdminStore = {
@@ -13,6 +13,7 @@ type AdminStore = {
 
   userData: UserDataColaboradorType | undefined;
   setUserData: (userData: UserDataColaboradorType | undefined) => void;
+  fetchUsuario: (e: number | string) => void
 
   lojas: GetLojasResType[];
   fetchLojas: () => Promise<void>;
@@ -56,6 +57,11 @@ const useAdminStore = create<AdminStore>((set) => ({
   fetchBancos: async () => {
     const bancos = await getListBancos();
     if(bancos) set({ bancos })
+  },
+
+  fetchUsuario: async (id: number | string) => {
+    const userData = await getUserById(id.toString());
+    if(userData) set({ userData })
   },
 }));
 

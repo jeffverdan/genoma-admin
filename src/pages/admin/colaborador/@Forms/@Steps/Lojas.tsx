@@ -19,10 +19,11 @@ export type ValuesLojasType = {
 type PropsType = {
   values: ValuesLojasType
   onNext: (e: object) => void
-  onBack: (e: object) => void
+  onBack?: (e: object) => void
+  setIndex?: (e: undefined) => void // VOLTAR DO MODO DE EDIÇÃO
 }
 
-export default function Lojas({ values, onNext, onBack }: PropsType) {
+export default function Lojas({ values, onNext, onBack, setIndex }: PropsType) {
   const RULES = {
     quant_cargos: z
     .number()
@@ -110,7 +111,7 @@ export default function Lojas({ values, onNext, onBack }: PropsType) {
       </div>
 
       <footer className="action-btns">
-        <BackButton onBack={onBack} />
+        {(setIndex || onBack) ? <BackButton setIndex={setIndex} onBack={onBack}  /> : <div></div>}                
         <NextButton />
       </footer>
     </FormProvider>

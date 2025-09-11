@@ -4,8 +4,8 @@ import DadosGerais, { type ValuesDadosGeraisType } from "./DadosGerais";
 import Lojas, { type ValuesLojasType } from "./Lojas";
 import DadosPagamento, { type ValuesDadosPagamentoType } from "./DadosPagamentos";
 import Endereco, { type ValuesEnderecoType } from "./Endereco";
-import MultiStep from "../multi-step";
-import type { FormityStatus } from "../multi-step";
+import MultiStep from "../@Animations/multi-step";
+import type { FormityStatus } from "../@Animations/multi-step";
 import { UserDataColaboradorType } from "@/apis/gerUserById";
 
 export type Values = [
@@ -91,7 +91,7 @@ const steps = (userData?: UserDataColaboradorType) => [
   },
 ];
 
-export const schema = (userData?: UserDataColaboradorType) => [
+export const schema = (userData?: UserDataColaboradorType, setIndex?: (e: undefined) => void) => [
   ...steps(userData).map((step, index) => ({
     form: {
       values: step.values,
@@ -101,6 +101,7 @@ export const schema = (userData?: UserDataColaboradorType) => [
             values={values}
             onNext={params.onSave(index + 1, onNext)}
             onBack={params.onSave(index - 1, onBack)}
+            setIndex={setIndex}
           />
         </MultiStep>
       ),

@@ -5,10 +5,11 @@ import ButtonComponent from "@/components/Button/Button";
 import { FormColaboradoresDataType } from "../@Steps/@Schema";
 
 export interface BackButtonProps extends ComponentPropsWithoutRef<"button"> {
-    onBack: (values: FormColaboradoresDataType) => void;    
+    onBack?: (values: FormColaboradoresDataType) => void;        
+    setIndex?: (e: undefined) => void // VOLTAR DO MODO DE EDIÇÃO
 }
 
-export default function BackButton({ onBack }: BackButtonProps) {
+export default function BackButton({ onBack, setIndex }: BackButtonProps) {
     const getValues = useFormContext()?.getValues;
     return (
         <motion.div
@@ -20,7 +21,7 @@ export default function BackButton({ onBack }: BackButtonProps) {
                 size="medium"
                 label='Voltar'
                 variant="outlined"
-                onClick={() => getValues ? onBack(getValues() as FormColaboradoresDataType) : null}
+                onClick={() => setIndex ? setIndex(undefined) : onBack ? onBack(getValues() as FormColaboradoresDataType) : ''}
             />
         </motion.div>
     );

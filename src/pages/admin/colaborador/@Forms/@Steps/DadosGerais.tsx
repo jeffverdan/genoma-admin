@@ -2,10 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import FormStep, { InputText } from '../form-step'
 import NextButton from "../Buttons/NextButton";
+import BackButton from "../Buttons/BackButton";
 
 type PropsType = {
     values: ValuesDadosGeraisType
     onNext: (e: ValuesDadosGeraisType) => void
+    setIndex?: (e: undefined) => void // VOLTAR DO MODO DE EDIÇÃO
 }
 
 export type ValuesDadosGeraisType = {
@@ -28,7 +30,7 @@ export const RULES_DADOS_GERAIS = {
     cnpj: z.string(),
 } as const;
 
-export default function DadosGerais({ values, onNext }: PropsType) {
+export default function DadosGerais({ values, onNext, setIndex }: PropsType) {
     console.log("Values: ", values);
     
     return (
@@ -58,7 +60,7 @@ export default function DadosGerais({ values, onNext }: PropsType) {
                 <InputText name="cnpj" label="CNPJ" placeholder="00.000.000/0000-00" />
             </div>
             <footer className="action-btns">
-                <div></div>
+                {setIndex ? <BackButton setIndex={setIndex} /> : <div></div>}
                 <NextButton />
             </footer>
         </FormStep>

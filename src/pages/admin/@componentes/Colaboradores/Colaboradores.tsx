@@ -3,7 +3,7 @@ import useAdminStore from "../../../../stores/admin/useAdminStore";
 import ButtonComponent from "@/components/Button/Button";
 import { HiPlus } from "react-icons/hi";
 import { HiArrowUpTray, HiPencil } from "react-icons/hi2";
-import { Table, TableBody, TableHead, TableRow, TableCell, Pagination, TablePagination, Box, Menu, MenuItem, TableSortLabel } from '@mui/material';
+import { Table, TableBody, TableHead, TableRow, TableCell, Pagination, TablePagination, Box, Menu, MenuItem, TableSortLabel, Chip } from '@mui/material';
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
@@ -101,7 +101,7 @@ export default function Colaboradores() {
         return filtered;
     }, [usuarios, order, orderBy, selectedCargo]);
 
-    const paginatedUsuarios = useMemo(() => {        
+    const paginatedUsuarios = useMemo(() => {
         const filtered = sortAndFilter;
 
         // 🔹 3. Paginação
@@ -116,7 +116,7 @@ export default function Colaboradores() {
     const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
-    
+
     const handleCloseMenu = () => setAnchorEl(null);
 
     const handleSelectCargo = (cargo: string | null) => {
@@ -230,15 +230,19 @@ export default function Colaboradores() {
                                     </TableCell>
                                     <TableCell padding='none'>
                                         <div className={`col-table`}>
-                                            <div className='col text' style={{ width: COLUMNS[1].minWidth }}>
-                                                <span>{row.perfil_login_nome || "Sem perfil"}</span>
+                                            <div className='col chip' style={{ width: COLUMNS[1].minWidth }}>
+                                                {[...new Map(row.cargos.map(item => [item.perfil_login_id, item])).values()].map((cargo) => (
+                                                    <Chip label={cargo.cargo} className='chip primary' key={cargo.id} />
+                                                ))}
                                             </div>
                                         </div>
                                     </TableCell>
                                     <TableCell padding='none'>
                                         <div className={`col-table`}>
-                                            <div className='col text' style={{ width: COLUMNS[2].minWidth }}>
-                                                <span>{row.loja_nome || "Sem loja"}</span>
+                                            <div className='col chip' style={{ width: COLUMNS[2].minWidth }}>
+                                                {[...new Map(row.lojas.map(item => [item.loja_id, item])).values()].map((loja) => (
+                                                    <Chip label={loja.nome} className='chip green' key={loja.id} />
+                                                ))}
                                             </div>
                                         </div>
                                     </TableCell>

@@ -3,9 +3,13 @@ import Form from './@Forms';
 import FooterForm from '@/components/Footers/Form';
 import { useEffect, useState } from "react";
 import useAdminStore from "@/stores/admin/useAdminStore";
+import ButtonComponent from "@/components/Button/Button";
+import { HiArrowLeft } from "react-icons/hi2";
+import { useRouter } from "next/router";
 
 export default function FuncionarioById() {  
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const route = useRouter();
   
   const TOTAL_STEPS = 3;    
   const { userData, setUserData } = useAdminStore();  
@@ -44,7 +48,13 @@ export default function FuncionarioById() {
       <Form setCurrentStep={setCurrentStep} />
 
       <FooterForm progress={{ numberOfSteps: TOTAL_STEPS, currentStep: currentStep }} >
-        <></>
+      <ButtonComponent
+          label="Voltar"
+          variant="text"
+          size="large"
+          startIcon={<HiArrowLeft />}
+          onClick={() => route.back()}
+        />
       </FooterForm>
     </div>
   );

@@ -9,7 +9,8 @@ import useAdminStore from "@/stores/admin/useAdminStore";
 type PropsType = {
     values: ValuesDadosPagamentoType
     onNext: (e: ValuesDadosPagamentoType) => void
-    onBack: (e: ValuesDadosPagamentoType) => void
+    onBack?: (e: object) => void
+    setIndex?: (e: undefined) => void // VOLTAR DO MODO DE EDIÇÃO
 }
 
 export type ValuesDadosPagamentoType = {
@@ -32,6 +33,7 @@ export default function DadosPagamento({
     values,
     onNext,
     onBack,
+    setIndex
 }: PropsType) {
     const RULES = {
         banco_id: z.number().nullable().optional(),
@@ -68,7 +70,7 @@ export default function DadosPagamento({
                 </div>
             </div>
             <footer className="action-btns">
-                <BackButton onBack={onBack} />
+                {(setIndex || onBack) ? <BackButton setIndex={setIndex} onBack={onBack}  /> : <div></div>}                
                 <NextButton />
             </footer>
         </FormStep>

@@ -81,6 +81,10 @@
         gap: 24px;
         height: max-content;
 
+        .p1 {
+            text-align: center;
+        }
+
         .MuiAvatar-root {
             width: 102px;
             height: 102px;
@@ -90,6 +94,8 @@
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
+            width: 100%;
+            justify-content: center;
         }
     }
 

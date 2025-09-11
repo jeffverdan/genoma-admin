@@ -54,6 +54,18 @@ type GetUsersListType = {
     "usuario_situacao": 0 | 1,
     "loja_nome": string,
     "loja_id": number
+    cargos: {
+        "id": number,
+        "perfil_login_id": number,
+        "cargo": string,
+        "usuario_situacao": 0 | 1,
+        "loja_id": number
+    }[],
+    lojas: {
+        "id": number,
+        "loja_id": number,
+        "nome": string
+    }
 }
 
 export type { GetLojasResType, GetUsersListType };
