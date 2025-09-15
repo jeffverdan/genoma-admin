@@ -230,7 +230,7 @@ export default function Colaboradores() {
                                     </TableCell>
                                     <TableCell padding='none'>
                                         <div className={`col-table`}>
-                                            <div className='col chip' style={{ width: COLUMNS[1].minWidth }}>
+                                            <div className='col chips' style={{ width: COLUMNS[1].minWidth }}>
                                                 {[...new Map(row.cargos.map(item => [item.perfil_login_id, item])).values()].map((cargo) => (
                                                     <Chip label={cargo.cargo} className='chip primary' key={cargo.id} />
                                                 ))}
@@ -239,9 +239,9 @@ export default function Colaboradores() {
                                     </TableCell>
                                     <TableCell padding='none'>
                                         <div className={`col-table`}>
-                                            <div className='col chip' style={{ width: COLUMNS[2].minWidth }}>
-                                                {[...new Map(row.lojas.map(item => [item.loja_id, item])).values()].map((loja) => (
-                                                    <Chip label={loja.nome} className='chip green' key={loja.id} />
+                                            <div className='col chips' style={{ width: COLUMNS[2].minWidth }}>
+                                                {[...new Map(row.lojas.map(item => [item.loja_id, item])).values()].map((loja, index) => (
+                                                    <Chip label={loja.loja_nome} className='chip green' key={index} />
                                                 ))}
                                             </div>
                                         </div>

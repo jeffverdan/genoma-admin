@@ -61,10 +61,9 @@ type GetUsersListType = {
         "usuario_situacao": 0 | 1,
         "loja_id": number
     }[],
-    lojas: {
-        "id": number,
+    lojas: {        
         "loja_id": number,
-        "nome": string
+        "loja_nome": string
     }[]
 }
 

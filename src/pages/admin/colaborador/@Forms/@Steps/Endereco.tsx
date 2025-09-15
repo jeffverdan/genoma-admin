@@ -35,9 +35,9 @@ export default function Endereco({
     const RULES = {
         cep: z.string(),
         logradouro: z.string(),
-        numero: z.string().optional(),
-        unidade: z.string().optional(),
-        complemento: z.string().optional(),
+        numero: z.string().nullable().optional(),
+        unidade: z.string().nullable().optional(),
+        complemento: z.string().nullable().optional(),
         cidade: z.string(),
         estado: z.string(),
         bairro: z.string(),

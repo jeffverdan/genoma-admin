@@ -64,17 +64,17 @@ const steps = (userData?: UserDataColaboradorType) => [
         []]
     }),
   },
-  {
-    id: "dadosPagamento",
-    Component: DadosPagamento,
-    values: () => ({
-      banco_id: [userData?.dados_bancarios?.banco_id || null, []],
-      agencia: [userData?.dados_bancarios?.agencia || '', []],
-      numero_conta: [userData?.dados_bancarios?.numero_conta || '', []],
-      tipo_chave_pix_id: [userData?.dados_bancarios?.tipo_chave_pix_id || null, []],
-      chave_pix: [userData?.dados_bancarios?.pix || '', []],
-    }),
-  },
+  // {
+  //   id: "dadosPagamento",
+  //   Component: DadosPagamento,
+  //   values: () => ({
+  //     banco_id: [userData?.dados_bancarios?.banco_id || null, []],
+  //     agencia: [userData?.dados_bancarios?.agencia || '', []],
+  //     numero_conta: [userData?.dados_bancarios?.numero_conta || '', []],
+  //     tipo_chave_pix_id: [userData?.dados_bancarios?.tipo_chave_pix_id || null, []],
+  //     chave_pix: [userData?.dados_bancarios?.pix || '', []],
+  //   }),
+  // },
   {
     id: "endereco",
     Component: Endereco,

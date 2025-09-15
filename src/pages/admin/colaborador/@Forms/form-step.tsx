@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import type { DefaultValues, FieldError, Resolver } from "react-hook-form";
 import { Controller, FormProvider, useFormContext, useForm } from "react-hook-form";
 import InputTextComponent from "@/components/Inputs/InputText";
@@ -49,6 +49,8 @@ export function InputText({ name, placeholder, label, onBlur, disabled, iconBefo
     const control = Form?.control;
     const error = Form?.formState.errors[name] as FieldError;
     // console.log("FormContext: ", Form?.watch());
+
+    
     
 
     return <Controller

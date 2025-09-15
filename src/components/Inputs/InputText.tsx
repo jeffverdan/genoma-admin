@@ -1,5 +1,5 @@
 import { IconButton, TextField } from '@mui/material';
-import { useState, forwardRef } from 'react';
+import { useState, forwardRef, useEffect } from 'react';
 import { TextFieldProps } from "@mui/material/TextField";
 import { Visibility, VisibilityOff, Check } from "@mui/icons-material";
 import InputAdornment from '@mui/material/InputAdornment';
@@ -25,7 +25,7 @@ const InputText = forwardRef<HTMLInputElement, MyTextFieldProps>(
     function InputText(data: MyTextFieldProps, ref) {
         const { label, placeholder, sucess, required, fieldError, width, value, onBlurFunction, iconBefore, type, saveOnBlur, className, ...rest } = data;
         const [isFocused, setIsFocused] = useState(false);
-        const [isValue, setIsValue] = useState(value ? true : false);
+        const [isValue, setIsValue] = useState(!!value);
         const [showPassword, setShowPassword] = useState<boolean>(false);
 
         const handleInputFocus = () => {
@@ -34,7 +34,7 @@ const InputText = forwardRef<HTMLInputElement, MyTextFieldProps>(
 
         const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
             setIsFocused(false);
-            
+
             if (saveOnBlur) saveOnBlur(e);
             if (e.target.value) {
                 setIsValue(true);
@@ -52,6 +52,16 @@ const InputText = forwardRef<HTMLInputElement, MyTextFieldProps>(
             event.preventDefault();
         };
 
+        useEffect(() => {
+            const input = document.getElementById(`${rest.name}-label`);
+            if (value && input) {
+                setIsValue(!!value)
+                console.log("Input: ", input.nodeValue);
+                // input.classList.remove('css-1m64zye-MuiFormLabel-root-MuiInputLabel-root');
+                input.classList.add('css-xiblmv-MuiFormLabel-root-MuiInputLabel-root')
+            }
+        }, [value]);
+
         return (
             <div style={{ width: width }} className={"inputContainer " +
                 (className || '') +
@@ -65,41 +75,42 @@ const InputText = forwardRef<HTMLInputElement, MyTextFieldProps>(
                     className="input-default"
                     variant="standard"
                     id={rest.name}
-                    required={required}                    
+                    required={required}
                     {...rest}
                     value={value}
                     placeholder={placeholder}
                     // InputLabelProps={{
                     //     shrink: true,
                     // }}
-                    slotProps={{ 
+                    slotProps={{
                         inputLabel: {
                             classes: ".css-xiblmv-MuiFormLabel-root-MuiInputLabel-root"
                         },
                         input: {
-                        endAdornment: (
-                            <InputAdornment position="end" className='icons-container'>
-                                {!!iconBefore 
-                                    ? iconBefore
-                                    : rest.name.includes("password")
-                                        ? <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                        >
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
+                            endAdornment: (
+                                <InputAdornment position="end" className='icons-container'>
+                                    {!!iconBefore
+                                        ? iconBefore
+                                        : rest.name.includes("password")
+                                            ? <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
 
-                                        :
-                                        (isValue && !fieldError) && !rest.name.includes("email")
-                                            ? <Check width={14} height={12} />
-                                            : ''
-                                }
-                                {!!fieldError && <HiExclamation />}
-                            </InputAdornment>
-                        )
-                    }}}
+                                            :
+                                            (isValue && !fieldError) && !rest.name.includes("email")
+                                                ? <Check width={14} height={12} />
+                                                : ''
+                                    }
+                                    {!!fieldError && <HiExclamation />}
+                                </InputAdornment>
+                            )
+                        }
+                    }}
                     error={!!fieldError}
                     inputRef={ref}
                     onFocus={handleInputFocus}

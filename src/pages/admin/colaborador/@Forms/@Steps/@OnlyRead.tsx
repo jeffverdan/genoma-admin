@@ -90,21 +90,21 @@ export default function FormLeitura(props: PropsType) {
             </footer>
         </div>
 
-        <div className="form-container dados-pessoais">
+        {/* <div className="form-container dados-pessoais">
             <h3>Informações de pagamento</h3>
             <h4>Banco</h4>
             <div className="row">
                 <div className="campo">
                     <p>Instituição financeira</p>
-                    <span>{userData?.dados_bancarios.nome_banco || '---'}</span>
+                    <span>{userData?.dados_bancarios?.nome_banco || '---'}</span>
                 </div>
                 <div className="campo">
                     <p>Agência</p>
-                    <span>{userData?.dados_bancarios.agencia || '---'}</span>
+                    <span>{userData?.dados_bancarios?.agencia || '---'}</span>
                 </div>
                 <div className="campo">
                     <p>Conta</p>
-                    <span>{userData?.dados_bancarios.numero_conta || '---'}</span>
+                    <span>{userData?.dados_bancarios?.numero_conta || '---'}</span>
                 </div>
             </div>
 
@@ -113,12 +113,12 @@ export default function FormLeitura(props: PropsType) {
             <div className="row">
                 <div className="campo">
                     <p>Tipo de Chave</p>
-                    <span>{userData?.dados_bancarios.tipo_chave_pix || '---'}</span>
+                    <span>{userData?.dados_bancarios?.tipo_chave_pix || '---'}</span>
                 </div>
 
                 <div className="campo">
                     <p>Chave Pix</p>
-                    <span>{userData?.dados_bancarios.pix || '---'}</span>
+                    <span>{userData?.dados_bancarios?.pix || '---'}</span>
                 </div>
             </div>
 
@@ -131,7 +131,7 @@ export default function FormLeitura(props: PropsType) {
                     onClick={() => setIndexForm(2)}
                 />
             </footer>
-        </div>
+        </div> */}
 
         <div className="form-container dados-pessoais">
             <h3>Endereço</h3>

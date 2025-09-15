@@ -5,6 +5,7 @@
     background: $neutral50;
     height: calc(100vh - 66px);
     width: 100vw;
+    overflow: hidden;
 
     .menu-lateral {
         border-right: 1px solid $neutral200;
@@ -15,6 +16,8 @@
 
     .dashboard-admin {
         padding: 16px 22px;
+        height: calc(100vh - 66px);
+        overflow: auto;
         display: flex;
         flex-direction: column;
         gap: 16px;

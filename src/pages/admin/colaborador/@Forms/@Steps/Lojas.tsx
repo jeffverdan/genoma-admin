@@ -9,10 +9,10 @@ import { FormProvider, useForm } from "react-hook-form";
 
 export type ValuesLojasType = {
   quant_cargos: number
-  cargos: {    
+  cargos: {
     id: number | null
-    perfil_login_id: number ,
-    loja_id: number 
+    perfil_login_id: number,
+    loja_id?: number
   }[]
 };
 
@@ -26,26 +26,26 @@ type PropsType = {
 export default function Lojas({ values, onNext, onBack, setIndex }: PropsType) {
   const RULES = {
     quant_cargos: z
-    .number()
-    .min(1, "Selecione ao menos 1 cargo")
-    .max(10, "Máximo de 10 cargos"), // opcional limite
-    
+      .number()
+      .min(1, "Selecione ao menos 1 cargo")
+      .max(10, "Máximo de 10 cargos"), // opcional limite
+
     cargos: z.array(
       z.object({
         id: z.number().nullable(),
         perfil_login_id: z.number().min(1, "Selecione um cargo válido"),
-        loja_id: z.number().min(1, "Selecione uma loja válida"),
+        loja_id: z.number().nullable().optional(),
       })
     )
   } as const;
 
   const lojas = useAdminStore((s) => s?.lojas);
   const cargos = useAdminStore((s) => s?.cargos);
-  const [ listQuant, setListQuant ] = useState([{ value: 0, name: "Selecione"}]);
+  const [listQuant, setListQuant] = useState([{ value: 0, name: "Selecione" }]);
 
   useEffect(() => {
     attQuantList()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const attQuantList = () => {
@@ -64,7 +64,7 @@ export default function Lojas({ values, onNext, onBack, setIndex }: PropsType) {
   });
   const { watch, setValue } = form;
 
-  if(form) {
+  if (form) {
     console.log("Watch: ", watch('cargos'));
     console.log("Values: ", values?.cargos);
     console.log("Errors: ", form.formState.errors);
@@ -80,12 +80,15 @@ export default function Lojas({ values, onNext, onBack, setIndex }: PropsType) {
         perfil_login_id: oldCargos[index]?.perfil_login_id,
         loja_id: oldCargos[index]?.loja_id
       }));
-  
+
       setValue("cargos", cargosArray);
       attQuantList();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watch("quant_cargos")]);
+
+  console.log("Cargos: ", cargos);
+
 
   return <form
     onSubmit={form.handleSubmit((value) => onNext(value))}
@@ -103,15 +106,17 @@ export default function Lojas({ values, onNext, onBack, setIndex }: PropsType) {
         />
         <p>Selecione o cargo e as lojas do colaborador</p>
         {watch("cargos")?.map((cargo, index) => (
-          <div className="form-row col2" key={index}>            
+          <div className="form-row col2" key={index}>
             <InputSelect name={`cargos.${index}.perfil_login_id`} label='Cargo*' option={cargos} />
-            <InputSelect name={`cargos.${index}.loja_id`} label='Loja*' option={lojas} />
+            {[3, 4, 7].includes(cargo.perfil_login_id) && // GERENTE, GERENTE GERAL, E CORRETOR
+              <InputSelect name={`cargos.${index}.loja_id`} label='Loja' option={lojas} />
+            }
           </div>
         ))}
       </div>
 
       <footer className="action-btns">
-        {(setIndex || onBack) ? <BackButton setIndex={setIndex} onBack={onBack}  /> : <div></div>}                
+        {(setIndex || onBack) ? <BackButton setIndex={setIndex} onBack={onBack} /> : <div></div>}
         <NextButton />
       </footer>
     </FormProvider>
