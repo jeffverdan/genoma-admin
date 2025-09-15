@@ -126,7 +126,7 @@ export default function Form({ setCurrentStep, index, setIndex }: FormPropsType)
       DADOS_CARGOS = value.cargos.map((cargo, index) => ({
         ...DADOS_CARGOS[index],
         cargo: cargos.find((e) => e.value === cargo.perfil_login_id)?.name || '',
-        loja_id: cargo.loja_id,
+        loja_id: cargo.loja_id || null,
         perfil_login_id: cargo.perfil_login_id
       }))
     }

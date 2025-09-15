@@ -54,7 +54,7 @@ export default function IndexPage() {
   },[]);
 
   const handleGoResetPassword = () => {
-    history.push('/esqueci-senha/enviarcodigo'); // Navega para a página inicial
+    history.replace('https://homolog.genomatech.com.br/esqueci-senha/enviarcodigo'); 
 };
   const onSubmit = async (data: LoginFormValues) => {
     setLoading(true);
