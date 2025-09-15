@@ -8,47 +8,51 @@ import { useRouter } from "next/router";
 
 export default function Admin() {
     const router = useRouter();
-    const {
-        selectedIndex,
-        fetchLojas,
-        fetchUsuarios,
-    } = useAdminStore();
+    const { selectedIndex, fetchLojas, fetchUsuarios } = useAdminStore();
 
+    // 🔹 Primeiro: valida e salva o token
     useEffect(() => {
+      if (!router.isReady) return;
+  
+      const tokenAtivo = localStorage.getItem("token");
+  
+      if (!tokenAtivo && router.query.token) {
+        const {
+          token,
+          usuario_id,
+          nome_usuario,
+          usuario_email,
+          perfil_login,
+          perfis_usuario,
+          lojas_usuario,
+          empresa_loja,
+        } = router.query;
+  
+        if (token) {
+          // Salva no localStorage
+          localStorage.setItem("token", String(token));
+          localStorage.setItem("usuario_id", String(usuario_id));
+          localStorage.setItem("nome_usuario", String(nome_usuario));
+          localStorage.setItem("usuario_email", String(usuario_email));
+          localStorage.setItem("perfil_login", String(perfil_login));
+          localStorage.setItem("perfis_usuario", String(perfis_usuario));
+          localStorage.setItem("lojas_usuario", String(lojas_usuario));
+          localStorage.setItem("empresa_loja", String(empresa_loja));
+  
+          // Recarrega a rota sem query string
+          router.replace("/admin");
+        }
+      }
+    }, [router.isReady, router.query, router]);
+  
+    // 🔹 Segundo: faz os fetchs somente quando já tiver token
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
         fetchLojas();
         fetchUsuarios();
+      }
     }, [fetchLojas, fetchUsuarios]);
-
-    useEffect(() => {
-        const tokenAtivo = localStorage.getItem("token");
-        if (!router.isReady) return;
-        else if (!tokenAtivo && router.query.token) {
-            const {
-                token,
-                usuario_id,
-                nome_usuario,
-                usuario_email,
-                perfil_login,
-                perfis_usuario,
-                lojas_usuario,
-                empresa_loja,
-            } = router.query;
-
-            if (token) {
-                // Salva no localStorage do sistema admin
-                localStorage.setItem("token", String(token));
-                localStorage.setItem("usuario_id", String(usuario_id));
-                localStorage.setItem("nome_usuario", String(nome_usuario));
-                localStorage.setItem("usuario_email", String(usuario_email));
-                localStorage.setItem("perfil_login", String(perfil_login));
-                localStorage.setItem("perfis_usuario", String(perfis_usuario));
-                localStorage.setItem("lojas_usuario", String(lojas_usuario));
-                localStorage.setItem("empresa_loja", String(empresa_loja));
-                router.push('/admin');
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [router.isReady, router.query]);
 
     return (
         <>
