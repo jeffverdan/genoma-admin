@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 export default function Admin() {
     const router = useRouter();
-    const { selectedIndex, fetchLojas, fetchUsuarios } = useAdminStore();
+    const { selectedIndex, fetchLojas, fetchUsuarios, fetchCargos } = useAdminStore();
 
     // 🔹 Primeiro: valida e salva o token
     useEffect(() => {
@@ -51,8 +51,9 @@ export default function Admin() {
       if (token) {
         fetchLojas();
         fetchUsuarios();
+        fetchCargos();
       }
-    }, [fetchLojas, fetchUsuarios]);
+    }, [fetchLojas, fetchUsuarios, fetchCargos]);
 
     return (
         <>

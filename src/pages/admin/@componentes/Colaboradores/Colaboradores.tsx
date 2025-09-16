@@ -29,21 +29,11 @@ export default function Colaboradores() {
     // 🔹 Estado do filtro
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [selectedCargo, setSelectedCargo] = useState<string | null>(null);
-    const [cargos, setCargos] = useState<string[]>([]);
+    const cargos = useAdminStore((s) => s?.cargos);
 
     // Ordenação
     const [order, setOrder] = useState<Order>('asc');
     const [orderBy, setOrderBy] = useState<string>('nome');
-
-    // Extrai cargos únicos sempre que "usuarios" mudar
-    useEffect(() => {
-        if (usuarios) {
-            const uniqueCargos = Array.from(
-                new Set(usuarios.map((u) => u.perfil_login_nome || "Sem perfil"))
-            );
-            setCargos(uniqueCargos);
-        }
-    }, [usuarios]);
 
     const handleChangePage = (_: unknown, newPage: number) => {
         setPage(newPage);
@@ -94,7 +84,7 @@ export default function Colaboradores() {
         // 🔹 2. Filtro por cargo
         const filtered = selectedCargo
             ? sorted.filter(
-                (u) => (u.perfil_login_nome || "Sem perfil") === selectedCargo
+                (u) => (u.cargos.find((e) => e.cargo === selectedCargo))
             )
             : sorted;
 
@@ -164,8 +154,8 @@ export default function Colaboradores() {
                 <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
                     <MenuItem onClick={() => handleSelectCargo(null)}>Todos</MenuItem>
                     {cargos.map((cargo, idx) => (
-                        <MenuItem key={idx} onClick={() => handleSelectCargo(cargo)}>
-                            {cargo}
+                        <MenuItem key={idx} onClick={() => handleSelectCargo(cargo.name)}>
+                            {cargo.name}
                         </MenuItem>
                     ))}
                 </Menu>

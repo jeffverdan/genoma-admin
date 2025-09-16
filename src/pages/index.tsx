@@ -54,7 +54,7 @@ export default function IndexPage() {
   },[]);
 
   const handleGoResetPassword = () => {
-    history.replace('https://homolog.genomatech.com.br/esqueci-senha/enviarcodigo'); 
+    history.replace('https://dna.genomatech.com.br/esqueci-senha/enviarcodigo'); 
 };
   const onSubmit = async (data: LoginFormValues) => {
     setLoading(true);
@@ -95,6 +95,9 @@ export default function IndexPage() {
       if (perfil_logins.nome === "Admin") {
         history.push('/admin');
       } 
+      else {
+        history.replace('https://dna.genomatech.com.br/')
+      }
     } catch (error) {
       console.log(error);
       
